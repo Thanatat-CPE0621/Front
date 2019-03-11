@@ -1,0 +1,76 @@
+@font-face {
+    font-family: 'Pontano Sans';
+    src: url('../fonts/RSU_Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Pontano Sans';
+    src: url('../fonts/RSU_Bold.ttf') format('truetype');
+    font-weight: Bold;
+    font-style: Bold;
+}
+
+
+*{
+    font-family: 'Pontano Sans' !important;
+}
+a{
+    font-size: 14px;
+    margin: auto;
+    color: #878887;
+}
+a:hover{
+    color: #45b383;
+}
+
+input,textarea{
+    font-family: 'Pontano Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    background-color: #e4e7ec;
+    font-size: 16px;
+    padding: 10px 10px;
+    min-width: 300px;
+    margin: 10px 0;
+    border-width: 0px;
+    border-radius: 2px;
+    color: #878887;
+}
+input:focus{
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: #83CCAC;
+}
+
+button{
+    margin: 10px auto 0px auto;
+    padding: 7px 10px;
+    width: 120px;
+    background-color: #45b383;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 2px;
+    border-width: 0px;
+    cursor: pointer;
+}
+
+button:active{
+    background-color: #578390;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}

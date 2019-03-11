@@ -1,8 +1,35 @@
 <template>
   <div>
     <div class="header">TH/EN</div>
+    <div class="flex">
+      <img src="~/assets/images/queq_element-02.png" class="img">
+    </div>
+    <div class="flex gap-top">
+      <input
+        name="login_name"
+        type="text"
+        placeholder="Username"
+        autocomplete="off"
+        v-model="login_name"
+      >
+    </div>
+    <div class="flex">
+      <input
+        name="password"
+        type="password"
+        placeholder="Password"
+        autocomplete="off"
+        v-model="password"
+      >
+    </div>
+    <div class="flex" @click="login()">
+      <button>ลงชื่อเข้าใช้</button>
+    </div>
+    <div class="flex">
+      <a href>Forget your password?</a>
+    </div>
     <div class="container">
-      <div class="container-footer  green-bar">
+      <div class="container-footer green-bar">
         <img src="~/assets/images/queq_element-01.png" class="img-footer">
       </div>
     </div>
@@ -10,25 +37,79 @@
 </template>
 
 <script>
+import { apiService } from "@/service/index";
+import { Modal } from "ant-design-vue";
 export default {
-  asyncData(context) {
-    // called every time before loading the component
-    // as the name said, it can be async
-    // Also, the returned object will be merged with your data object
-    return { name: "QueQ Hopsital Warroom : Login" };
+  data() {
+    return {
+      login_name: "namename",
+      password: "namename"
+    };
   },
-  fetch() {
-    // The `fetch` method is used to fill the store before rendering the page
+  mounted() {
+    if (this.$store.state.user.isLogin) {
+      if (this.$store.state.user.userData.role.id === 53) {
+        this.$router.push(`/admin`);
+      } else {
+        this.$router.push(
+          `/dashboard/${this.$store.state.user.userData.hospital.id}`
+        );
+      }
+    }
   },
   head() {
     return {
       title: "QueQ Hopsital Warroom : Login"
     };
+  },
+  methods: {
+    login() {
+      const _this = this;
+      let data = new FormData();
+      data.append("login_name", _this.login_name);
+      data.append("password", _this.password);
+      this.$nuxt.$loading.start();
+      apiService
+        .post("user/login", data)
+        .then(res => {
+          const { data } = res.data;
+          if (!data) {
+            this.$nuxt.$loading.finish();
+            return;
+          }
+          localStorage.setItem("user_data", JSON.stringify(data));
+          this.$store.commit("user/setUserData", {
+            user: data,
+            isLogin: true
+          });
+          if (this.$store.state.user.userData.role.id === 53) {
+            this.$router.push(`/admin`);
+          } else {
+            this.$router.push(
+              `/dashboard/${this.$store.state.user.userData.hospital.id}`
+            );
+          }
+          this.$nuxt.$loading.finish();
+        })
+        .catch(err => {
+          this.$nuxt.$loading.finish();
+          console.log(err);
+        });
+      // _this.login_name;
+      // _this.password;
+    }
   }
 };
 </script>
 
-<style scoped>
+<style scoped >
+input {
+  width: 300px;
+  height: 51px;
+}
+button {
+  width: 130px;
+}
 .header {
   height: 50px;
   display: flex;
@@ -60,5 +141,15 @@ export default {
   width: 50%;
   max-width: 500px;
   min-width: 200px;
+}
+.img {
+  height: 180px;
+}
+.flex {
+  display: flex;
+  justify-content: center;
+}
+.gap-top {
+  margin-top: 3%;
 }
 </style>

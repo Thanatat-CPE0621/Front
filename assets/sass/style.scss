@@ -1,0 +1,69 @@
+$font-stack:  Pontano Sans, Helvetica, Arial, sans-serif;
+$primary-color: #45b383;
+$primary-subcolor-color: #578390;
+$font-color:#878887;
+
+@font-face {
+    font-family: 'Pontano Sans';
+    src: url('../fonts/RSU_Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+    
+@font-face {
+    font-family: 'Pontano Sans';
+    src: url('../fonts/RSU_Bold.ttf') format('truetype');
+    font-weight: Bold;
+    font-style: Bold;
+}
+
+* {
+    font-family: $font-stack !important;
+}
+
+a {
+    font-size: 14px;
+    margin: auto;
+    color: $font-color;
+    &:hover {
+        color: $primary-color;
+    }
+}
+   
+input,textarea {
+    font-family: $font-stack, Helvetica, Arial, sans-serif !important;
+    background-color: #e4e7ec;
+    font-size: 16px;
+    padding: 10px 10px;
+    margin: 10px 0;
+    border-width: 0px;
+    border-radius: 2px;
+    color: $font-color;
+    &:focus{
+        outline-width: 1px;
+        outline-style: solid;
+        outline-color: #83CCAC;
+    }
+      
+}
+
+button {
+    margin: 10px auto 0px auto;
+    padding: 7px 10px;
+    background-color: $primary-color;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 2px;
+    border-width: 0px;
+    cursor: pointer;
+    &:active{
+        background-color: #578390;
+    }
+}
+
+.flex-center{
+    display: flex;
+    justify-content: center;
+}
+   

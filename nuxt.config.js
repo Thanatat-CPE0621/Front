@@ -22,21 +22,25 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: '~/components/common/loading.vue',
 
   /*
   ** Global CSS
   */
   css: [
     'element-ui/lib/theme-chalk/index.css',
-    {src:'~/assets/css/style.css'}
+    'ant-design-vue/dist/antd.css',
+    { src: '@/assets/sass/style.scss', lang: 'scss' }
+
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    '@/plugins/antd-vue',
+    { src: '@/plugins/localStorage.js', ssr: false }
   ],
 
   /*
@@ -59,12 +63,12 @@ module.exports = {
   */
   build: {
     transpile: [/^element-ui/],
-    
+
     /*
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-      
+
     }
   }
 }
