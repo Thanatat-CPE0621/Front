@@ -1,9 +1,12 @@
 export const state = () => ({
-    userData: {}
+    userData: [],
+    isLogin: false,
+    token: null
 })
 export const mutations = {
     setUserData(state, payload) {
-        state.userData = payload.user,
+        state.userData = payload.user
         state.isLogin = payload.isLogin
-    }
+        state.token = payload.token
+    },
 }

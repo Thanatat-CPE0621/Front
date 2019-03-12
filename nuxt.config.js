@@ -62,6 +62,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    // publicPath:'~/dist/',
     transpile: [/^element-ui/],
 
     /*

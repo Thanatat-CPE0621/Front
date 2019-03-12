@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { apiService } from "@/service/index";
+import apiService from "@/service/index";
 import { Modal } from "ant-design-vue";
 export default {
   data() {
@@ -46,14 +46,16 @@ export default {
       password: "namename"
     };
   },
-  mounted() {
-    if (this.$store.state.user.isLogin) {
-      if (this.$store.state.user.userData.role.id === 53) {
-        this.$router.push(`/admin`);
-      } else {
-        this.$router.push(
-          `/dashboard/${this.$store.state.user.userData.hospital.id}`
-        );
+  created() {
+    if (this.$store.state.user.hasOwnProperty("userData")) {
+      if (this.$store.state.user.userData.hasOwnProperty("role")) {
+        if (this.$store.state.user.userData.role.id === 53) {
+          this.$router.push("/admin");
+        } else {
+          this.$router.push(
+            `/dashboard/${this.$store.state.user.userData.hospital.id}/main`
+          );
+        }
       }
     }
   },
@@ -64,6 +66,7 @@ export default {
   },
   methods: {
     login() {
+      console.log("object");
       const _this = this;
       let data = new FormData();
       data.append("login_name", _this.login_name);
@@ -72,6 +75,7 @@ export default {
       apiService
         .post("user/login", data)
         .then(res => {
+          console.log("res:", res);
           const { data } = res.data;
           if (!data) {
             this.$nuxt.$loading.finish();
@@ -80,13 +84,14 @@ export default {
           localStorage.setItem("user_data", JSON.stringify(data));
           this.$store.commit("user/setUserData", {
             user: data,
-            isLogin: true
+            isLogin: true,
+            token: data.user.token
           });
           if (this.$store.state.user.userData.role.id === 53) {
-            this.$router.push(`/admin`);
+            this.$router.push("/admin");
           } else {
             this.$router.push(
-              `/dashboard/${this.$store.state.user.userData.hospital.id}`
+              `/dashboard/${this.$store.state.user.userData.hospital.id}/main`
             );
           }
           this.$nuxt.$loading.finish();
@@ -95,8 +100,6 @@ export default {
           this.$nuxt.$loading.finish();
           console.log(err);
         });
-      // _this.login_name;
-      // _this.password;
     }
   }
 };

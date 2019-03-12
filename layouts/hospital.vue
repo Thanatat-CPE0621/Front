@@ -2,22 +2,7 @@
   <div class="container">
     <el-container style="height: 100%;">
       <el-header style="padding:0px;">
-        <nav>
-          <img src="~/assets/images/queq_element-03.png" class="logo">
-          <div class="nav-text">
-            <a-tooltip placement="bottom">
-              <template slot="title">
-                <span>prompt text</span>
-              </template>
-              <div class="bold">UI Ver.1.0.17</div>
-            </a-tooltip>
-            <div class="inline">
-              <img src="~/assets/images/user.png" class="user-img">
-              <div>namename</div>
-            </div>
-            <div>TH/EN</div>
-          </div>
-        </nav>
+        <navbar/>
       </el-header>
       <el-container>
         <el-main>
@@ -29,7 +14,12 @@
 </template>
 
 <script>
-export default {};
+import navbar from "~/components/navbar";
+export default {
+  components: {
+    navbar
+  }
+};
 </script>
 
 
@@ -91,7 +81,7 @@ nav {
 .left-bar {
   margin-top: 6px;
   width: 100px;
-  height: 91vh;
+  /* height: 91vh; */
   background: #fff;
   display: flex;
   justify-content: center;

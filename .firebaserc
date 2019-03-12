@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "staging": "queq-hospital-warroom-v2",
+    "default": "queq-hospital-warroom-v2"
+  }
+}

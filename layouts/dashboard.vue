@@ -2,27 +2,12 @@
   <div class="container">
     <el-container style="height: 100%;">
       <el-header style="padding:0px;">
-        <nav>
-          <img src="~/assets/images/queq_element-03.png" class="logo">
-          <div class="nav-text">
-            <a-tooltip placement="bottom">
-              <template slot="title">
-                <span>prompt text</span>
-              </template>
-              <div class="bold">UI Ver.1.0.17</div>
-            </a-tooltip>
-            <div class="inline">
-              <img src="~/assets/images/user.png" class="user-img">
-              <div>namename</div>
-            </div>
-            <div>TH/EN</div>
-          </div>
-        </nav>
+        <navbar/>
       </el-header>
       <el-container>
         <el-aside width="112px" class="left-bar">
           <div class="item-center-bar">
-            <div>
+            <nuxt-link :to="{ path:'/dashboard/'+hID+'/main'}">
               <img
                 class="logo-nav"
                 :src="isHoverDefault[0]"
@@ -31,20 +16,19 @@
                 @mouseover="mouseOver(0)"
               >
               <span class="text-center">หน้าหลัก</span>
-            </div>
-            <div>
+            </nuxt-link>
+            <nuxt-link :to="{ path:'/dashboard/'+hID+'/qall'}">
               <img
                 class="logo-nav"
                 :src="isHoverDefault[1]"
                 :class="{ 'hover'  :isActive[1]}"
-
                 @mouseleave="mouseleave(1)"
                 @mouseover="mouseOver(1)"
               >
               <span class="text-center">{{`กราฟคิวรวม`}}</span>
               <span class="text-center">{{`ทั้งโรงพยาบาล`}}</span>
-            </div>
-            <div>
+            </nuxt-link>
+            <nuxt-link :to="{ path:'/dashboard/'+hID+'/maxtime'}">
               <img
                 class="logo-nav"
                 :src="isHoverDefault[2]"
@@ -54,8 +38,8 @@
               >
               <span class="text-center">{{`กราฟช่วงเวลา`}}</span>
               <span class="text-center">{{`ที่ใช้บริการสูงสุด`}}</span>
-            </div>
-            <div>
+            </nuxt-link>
+            <nuxt-link :to="{ path:'/dashboard/'+hID+'/export'}">
               <img
                 class="logo-nav"
                 :src="isHoverDefault[3]"
@@ -64,7 +48,7 @@
                 @mouseover="mouseOver(3)"
               >
               <span class="text-center">Export</span>
-            </div>
+            </nuxt-link>
           </div>
         </el-aside>
         <el-main>
@@ -80,25 +64,33 @@ import gicon0 from "~/assets/images/slider/dashboard/gicon-0.png";
 import gicon1 from "~/assets/images/slider/dashboard/gicon-1.png";
 import gicon2 from "~/assets/images/slider/dashboard/gicon-2.png";
 import gicon3 from "~/assets/images/slider/dashboard/gicon-3.png";
-
+import navbar from "~/components/navbar";
 export default {
+  components: {
+    navbar
+  },
   data() {
     return {
       isHoverDefault: [gicon0, gicon1, gicon2, gicon3],
       isActive: [false, false, false, false],
-      hover: "hover"
+      hover: "hover",
+      hID: null
     };
+  },
+  created() {
+    const _this = this;
+    _this.hID = this.$nuxt._route.params.hospital;
   },
   methods: {
     mouseOver(index) {
       const _this = this;
       _this.isActive[index] = true;
-      this.$set(_this.isActive,index,true)
+      this.$set(_this.isActive, index, true);
     },
     mouseleave(index) {
       const _this = this;
       _this.isActive[index] = false;
-      this.$set(_this.isActive,index,false)
+      this.$set(_this.isActive, index, false);
     }
   }
 };
@@ -107,7 +99,8 @@ export default {
 
 <style scoped >
 .hover {
-  filter: invert(55%) sepia(41%) saturate(570%) hue-rotate(103deg) brightness(111%) contrast(88%);
+  filter: invert(55%) sepia(41%) saturate(570%) hue-rotate(103deg)
+    brightness(111%) contrast(88%);
 }
 .logo {
   cursor: pointer;
@@ -162,7 +155,7 @@ nav {
 .left-bar {
   margin-top: 6px;
   width: 100px;
-  height: 91vh;
+  /* height: 91vh; */
   background: #fff;
   display: flex;
   justify-content: center;

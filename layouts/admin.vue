@@ -2,47 +2,47 @@
   <div class="container">
     <el-container style="height: 100%;">
       <el-header style="padding:0px;">
-        <navbar />
+        <navbar/>
       </el-header>
       <el-container>
         <el-aside width="112px" class="left-bar">
           <div class="item-center-bar">
-              <img
-                class="logo-nav"
-                :src="isHoverDefault[0]"
-                :class="isActive[0] ? 'hover' : null"
-                @mouseleave="mouseleave(0)"
-                @mouseover="mouseOver(0)"
-              >
-              <img
-                class="logo-nav"
-                :src="isHoverDefault[1]"
-                :class="{ 'hover'  :isActive[1]}"
-                @mouseleave="mouseleave(1)"
-                @mouseover="mouseOver(1)"
-              >
-              <img
-                class="logo-nav"
-                :src="isHoverDefault[2]"
-                :class="isActive[2] ? 'hover' : null"
-                @mouseleave="mouseleave(2)"
-                @mouseover="mouseOver(2)"
-              >
-              <img
-                class="logo-nav"
-                :src="isHoverDefault[3]"
-                :class="isActive[3] ? 'hover' : null"
-                @mouseleave="mouseleave(3)"
-                @mouseover="mouseOver(3)"
-              >
-              <img
+            <img
+              class="logo-nav"
+              :src="isHoverDefault[0]"
+              :class="isActive[0] ? 'hover' : null"
+              @mouseleave="mouseleave(0)"
+              @mouseover="mouseOver(0)"
+            >
+            <img
+              class="logo-nav"
+              :src="isHoverDefault[1]"
+              :class="{ 'hover'  :isActive[1]}"
+              @mouseleave="mouseleave(1)"
+              @mouseover="mouseOver(1)"
+            >
+            <img
+              class="logo-nav"
+              :src="isHoverDefault[2]"
+              :class="isActive[2] ? 'hover' : null"
+              @mouseleave="mouseleave(2)"
+              @mouseover="mouseOver(2)"
+            >
+            <img
+              class="logo-nav"
+              :src="isHoverDefault[3]"
+              :class="isActive[3] ? 'hover' : null"
+              @mouseleave="mouseleave(3)"
+              @mouseover="mouseOver(3)"
+            >
+            <img
               style="margin-left:2px;"
-                class="logo-nav"
-                :src="isHoverDefault[4]"
-                :class="isActive[4] ? 'hover' : null"
-                @mouseleave="mouseleave(4)"
-                @mouseover="mouseOver(4)"
-              >
+              class="logo-nav"
+              :src="isHoverDefault[4]"
+              :class="isActive[4] ? 'hover' : null"
+              @mouseleave="mouseleave(4)"
+              @mouseover="mouseOver(4)"
+            >
           </div>
         </el-aside>
         <el-main>
@@ -59,16 +59,15 @@ import gicon1 from "~/assets/images/slider/admin/giconadmin-1.png";
 import gicon2 from "~/assets/images/slider/admin/giconadmin-2.png";
 import gicon3 from "~/assets/images/slider/admin/giconadmin-3.png";
 import gicon4 from "~/assets/images/slider/admin/giconadmin-4.png";
-
-import navbar from '~/components/navbar.vue'
+import navbar from "~/components/navbar";
 export default {
-  components:{
+  components: {
     navbar
   },
   data() {
     return {
-      isHoverDefault: [gicon0, gicon1, gicon2, gicon3,gicon4],
-      isActive: [false, false, false, false,false],
+      isHoverDefault: [gicon0, gicon1, gicon2, gicon3, gicon4],
+      isActive: [false, false, false, false, false],
       hover: "hover"
     };
   },
@@ -124,7 +123,7 @@ nav {
 .left-bar {
   margin-top: 6px;
   width: 100px;
-  height: 91vh;
+  /* height: 91vh; */
   background: #fff;
   display: flex;
   justify-content: center;

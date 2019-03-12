@@ -29,6 +29,13 @@ a {
     &:hover {
         color: $primary-color;
     }
+    &:visited{
+        text-decoration: none;
+    }
+    &:link {
+        text-decoration: none;
+      }
+
 }
    
 input,textarea {
