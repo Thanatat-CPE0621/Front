@@ -1,11 +1,10 @@
 <template>
   <div v-if="loading" class="loading-page">
-  <div class="spinner">
-    <div class="double-bounce1"></div>
-    <div class="double-bounce2"></div>
+    <div class="spinner">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div>
   </div>
- 
-</div>
 </template>
 
 <script>
@@ -15,13 +14,13 @@ export default {
   }),
   methods: {
     start() {
-      this.loading = true
+      this.loading = true;
     },
     finish() {
-      this.loading = false
+      this.loading = false;
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -31,12 +30,12 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255,0.8);
+  background: rgba(255, 255, 255, 0.8);
   text-align: center;
-  padding-top: 40%;
+  padding-top: 20%;
   font-size: 40px;
   display: flex;
-   z-index: 999;
+  z-index: 999;
   justify-content: center;
   font-family: sans-serif;
 }
@@ -47,7 +46,8 @@ export default {
   position: relative;
 }
 
-.double-bounce1, .double-bounce2 {
+.double-bounce1,
+.double-bounce2 {
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -56,29 +56,35 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  
-  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-  animation: sk-bounce 2.0s infinite ease-in-out;
+
+  -webkit-animation: sk-bounce 2s infinite ease-in-out;
+  animation: sk-bounce 2s infinite ease-in-out;
 }
 
 .double-bounce2 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
 }
 
 @-webkit-keyframes sk-bounce {
-  0%, 100% { -webkit-transform: scale(0.0) }
-  50% { -webkit-transform: scale(1.0) }
-}
-
-@keyframes sk-bounce {
-  0%, 100% { 
-    transform: scale(0.0);
-    -webkit-transform: scale(0.0);
-  } 50% { 
-    transform: scale(1.0);
-    -webkit-transform: scale(1.0);
+  0%,
+  100% {
+    -webkit-transform: scale(0);
+  }
+  50% {
+    -webkit-transform: scale(1);
   }
 }
 
+@keyframes sk-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+}
 </style>

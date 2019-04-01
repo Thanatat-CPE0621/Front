@@ -10,6 +10,7 @@
         type="text"
         placeholder="Username"
         autocomplete="off"
+        class="input"
         v-model="login_name"
       >
     </div>
@@ -19,6 +20,7 @@
         type="password"
         placeholder="Password"
         autocomplete="off"
+        class="input"
         v-model="password"
       >
     </div>
@@ -71,14 +73,14 @@ export default {
       let data = new FormData();
       data.append("login_name", _this.login_name);
       data.append("password", _this.password);
-      this.$nuxt.$loading.start();
+      window.$nuxt.$root.$loading.start();
       apiService
         .post("user/login", data)
         .then(res => {
           console.log("res:", res);
           const { data } = res.data;
           if (!data) {
-            this.$nuxt.$loading.finish();
+            window.$nuxt.$root.$loading.finish();
             return;
           }
           localStorage.setItem("user_data", JSON.stringify(data));
@@ -94,10 +96,10 @@ export default {
               `/dashboard/${this.$store.state.user.userData.hospital.id}/main`
             );
           }
-          this.$nuxt.$loading.finish();
+          window.$nuxt.$root.$loading.finish();
         })
         .catch(err => {
-          this.$nuxt.$loading.finish();
+          window.$nuxt.$root.$loading.finish();
           console.log(err);
         });
     }

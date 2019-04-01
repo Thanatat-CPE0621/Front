@@ -30,16 +30,16 @@ module.exports = {
   css: [
     'element-ui/lib/theme-chalk/index.css',
     'ant-design-vue/dist/antd.css',
-    { src: '@/assets/sass/style.scss', lang: 'scss' }
+    { src: '@/assets/sass/style.scss', lang: 'scss' },
 
   ],
-
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/antd-vue',
+    { src: '@/plugins/apex-chart', ssr: false },
     { src: '@/plugins/localStorage.js', ssr: false }
   ],
 
@@ -50,6 +50,7 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    ['@nuxtjs/moment', { locales: ['th', 'es-us'], defaultLocale: 'th' }]
   ],
   /*
   ** Axios module configuration
@@ -64,12 +65,28 @@ module.exports = {
   build: {
     // publicPath:'~/dist/',
     transpile: [/^element-ui/],
-
+    vendor: ['vue-apexchart'],
     /*
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-
+      config.module.rules.push({
+        enforce: 'pre', test: /\.less$/, loader: 'less-loader', options:
+          { "modifyVars": { "primary-color": "#45b383" }, javascriptEnabled: true, cssModules: true }
+      })
+      const vueLoader = config.module.rules.find(
+        rule => rule.loader === "vue-loader"
+      );
+      vueLoader.options.transformToRequire = {
+        img: "src",
+        image: "xlink:href",
+        "b-img": "src",
+        "b-img-lazy": ["src", "blank-src"],
+        "b-card": "img-src",
+        "b-card-img": "img-src",
+        "b-carousel-slide": "img-src",
+        "b-embed": "src"
+      };
     }
   }
 }

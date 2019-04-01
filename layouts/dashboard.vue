@@ -1,62 +1,62 @@
 <template>
-  <div class="container">
-    <el-container style="height: 100%;">
-      <el-header style="padding:0px;">
-        <navbar/>
-      </el-header>
+  <el-container style="height: 100vh; border: 1px solid #eee" class="bg">
+    <el-header style="padding:0px;">
+      <navbar/>
+    </el-header>
+    <el-container style="background-color: #f1f2f2;">
+      <el-aside width="112" class="left-bar">
+        <div class="item-center-bar">
+          <nuxt-link :to="{ path:'/dashboard/'+hID+'/main'}">
+            <img
+              class="logo-nav"
+              :src="isHoverDefault[0]"
+              :class="[isActive[0] ? 'hover' : null,this.$route.name=='dashboard-hospital-main' ? 'hover' :null]"
+              @mouseleave="mouseleave(0)"
+              @mouseover="mouseOver(0)"
+            >
+            <span class="text-center">หน้าหลัก</span>
+          </nuxt-link>
+          <nuxt-link :to="{ path:'/dashboard/'+hID+'/qall'}">
+            <img
+              class="logo-nav"
+              :src="isHoverDefault[1]"
+              :class="[isActive[1] ? 'hover' : null,this.$route.name=='dashboard-hospital-qall' ? 'hover' :null]"
+              @mouseleave="mouseleave(1)"
+              @mouseover="mouseOver(1)"
+            >
+            <span class="text-center">{{`กราฟคิวรวม`}}</span>
+            <span class="text-center">{{`ทั้งโรงพยาบาล`}}</span>
+          </nuxt-link>
+          <nuxt-link :to="{ path:'/dashboard/'+hID+'/maxtime'}">
+            <img
+              class="logo-nav"
+              :src="isHoverDefault[2]"
+              :class="[isActive[2] ? 'hover' : null,this.$route.name=='dashboard-hospital-maxtime' ? 'hover' :null]"
+              @mouseleave="mouseleave(2)"
+              @mouseover="mouseOver(2)"
+            >
+            <span class="text-center">{{`กราฟช่วงเวลา`}}</span>
+            <span class="text-center">{{`ที่ใช้บริการสูงสุด`}}</span>
+          </nuxt-link>
+          <nuxt-link :to="{ path:'/dashboard/'+hID+'/export'}">
+            <img
+              class="logo-nav"
+              :src="isHoverDefault[3]"
+              :class="[isActive[3] ? 'hover' : null,this.$route.name=='dashboard-hospital-export' ? 'hover' :null]"
+              @mouseleave="mouseleave(3)"
+              @mouseover="mouseOver(3)"
+            >
+            <span class="text-center">Export</span>
+          </nuxt-link>
+        </div>
+      </el-aside>
       <el-container>
-        <el-aside width="112px" class="left-bar">
-          <div class="item-center-bar">
-            <nuxt-link :to="{ path:'/dashboard/'+hID+'/main'}">
-              <img
-                class="logo-nav"
-                :src="isHoverDefault[0]"
-                :class="isActive[0] ? 'hover' : null"
-                @mouseleave="mouseleave(0)"
-                @mouseover="mouseOver(0)"
-              >
-              <span class="text-center">หน้าหลัก</span>
-            </nuxt-link>
-            <nuxt-link :to="{ path:'/dashboard/'+hID+'/qall'}">
-              <img
-                class="logo-nav"
-                :src="isHoverDefault[1]"
-                :class="{ 'hover'  :isActive[1]}"
-                @mouseleave="mouseleave(1)"
-                @mouseover="mouseOver(1)"
-              >
-              <span class="text-center">{{`กราฟคิวรวม`}}</span>
-              <span class="text-center">{{`ทั้งโรงพยาบาล`}}</span>
-            </nuxt-link>
-            <nuxt-link :to="{ path:'/dashboard/'+hID+'/maxtime'}">
-              <img
-                class="logo-nav"
-                :src="isHoverDefault[2]"
-                :class="isActive[2] ? 'hover' : null"
-                @mouseleave="mouseleave(2)"
-                @mouseover="mouseOver(2)"
-              >
-              <span class="text-center">{{`กราฟช่วงเวลา`}}</span>
-              <span class="text-center">{{`ที่ใช้บริการสูงสุด`}}</span>
-            </nuxt-link>
-            <nuxt-link :to="{ path:'/dashboard/'+hID+'/export'}">
-              <img
-                class="logo-nav"
-                :src="isHoverDefault[3]"
-                :class="isActive[3] ? 'hover' : null"
-                @mouseleave="mouseleave(3)"
-                @mouseover="mouseOver(3)"
-              >
-              <span class="text-center">Export</span>
-            </nuxt-link>
-          </div>
-        </el-aside>
         <el-main>
           <nuxt/>
         </el-main>
       </el-container>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script>
@@ -98,6 +98,34 @@ export default {
 
 
 <style scoped >
+html {
+  background-color: #f1f2f2 !important;
+}
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 60;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+/* test */
 .hover {
   filter: invert(55%) sepia(41%) saturate(570%) hue-rotate(103deg)
     brightness(111%) contrast(88%);
@@ -125,8 +153,7 @@ export default {
   font-weight: bold;
   margin-right: 10px;
 }
-.container {
-  height: 100vh;
+.bg {
   background-color: #f1f2f2;
 }
 
@@ -155,7 +182,7 @@ nav {
 .left-bar {
   margin-top: 6px;
   width: 100px;
-  /* height: 91vh; */
+  height: 92vh;
   background: #fff;
   display: flex;
   justify-content: center;
@@ -169,6 +196,7 @@ nav {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
+  height: 85vh;
 }
 .text-center {
   display: flex;

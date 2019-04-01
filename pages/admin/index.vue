@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex-center">
-      <input type="text" class="search" placeholder="ค้นหา">
+      <input type="text" class="search input" placeholder="ค้นหา">
     </div>
     <div class="container">
       <el-row type="flex" justify="center">
@@ -16,20 +16,7 @@
               v-for="(item, index) in hospitals"
               :key="index"
             >
-              <nuxt-link :to="{ path:'/dashboard/'+item.id +'/main'}">
-                <card style="height:150px;width:250px;" class="center-col" hospital>
-                  <div slot="content">
-                    <div class="container">
-                      <div class="content-center">
-                        <img class="logo" :src="item.logo" @error="imgError">
-                        <div class="container-text">
-                          <label>{{item.name}}</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </card>
-              </nuxt-link>
+              <nuxt-link :to="{ path:'/dashboard/'+item.id +'/main'}"></nuxt-link>
             </el-col>
           </el-row>
         </el-col>
@@ -46,14 +33,11 @@
 </template>
 
 <script>
-import card from "@/components/common/Card.vue";
 import apiService from "@/service/index";
 import noLogo from "@/assets/images/hospitalLogo.png";
 export default {
   layout: "hospital",
-  components: {
-    card
-  },
+
   computed: {
     hospitals() {
       return this.$store.state.hospital.hospitals;
@@ -68,7 +52,6 @@ export default {
     apiService
       .get("hospital/")
       .then(res => {
-        this.$nuxt.$loading.finish();
         const { data } = res.data;
         console.log("data:", data);
         console.log("token:", res);
@@ -97,6 +80,14 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  box-shadow: rgb(204, 204, 204, 0.7) 3px 4px 20px;
+  border-radius: 8px;
+  color: rgb(128, 130, 133);
+  padding: 20px;
+  margin: 2.5% 2%;
+  background-color: white;
+}
 .search {
   width: 40%;
   height: 30px;

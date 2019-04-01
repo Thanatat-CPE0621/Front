@@ -1,11 +1,5 @@
 <template>
-  <nav>
-    <!-- <div class="nav-text-left">
-      <img src="~/assets/images/queq_element-03.png" class="logo">
-      <div class="inline">
-        <div>asdasd</div>
-      </div>
-    </div>-->
+  <nav class="nav">
     <div class="inline">
       <nuxt-link to="/admin" v-if="getHospital">
         <img src="~/assets/images/queq_element-03.png" class="logo">
@@ -57,23 +51,25 @@ export default {
   mounted() {
     console.log(this.$route);
     const _this = this;
-    if ($nuxt.$route.name === "dashboard-hospital-main") {
-      this.$nuxt.$loading.start();
-      apiService
-        .get(`hospital/${$nuxt.$route.params.hospital}/info`)
-        .then(res => {
-          console.log("res:", res);
-          const { data } = res.data;
-          this.$store.commit("hospital/getHospitalInfo", {
-            info: data
+    this.$nextTick(() => {
+      if ($nuxt.$route.name === "dashboard-hospital-main") {
+        this.$root.$loading.start();
+        apiService
+          .get(`hospital/${$nuxt.$route.params.hospital}/info`)
+          .then(res => {
+            console.log("res:", res);
+            const { data } = res.data;
+            this.$store.commit("hospital/getHospitalInfo", {
+              info: data
+            });
+            this.$root.$loading.finish();
+          })
+          .catch(err => {
+            this.$root.$loading.finish();
+            console.log(err);
           });
-          this.$nuxt.$loading.finish();
-        })
-        .catch(err => {
-          this.$nuxt.$loading.finish();
-          console.log(err);
-        });
-    }
+      }
+    });
   },
   computed: {
     getname() {
@@ -118,6 +114,10 @@ export default {
 </script>
 
 <style scoped>
+.nav {
+  position: fixed;
+  z-index: 999;
+}
 .logo-hospital {
   margin-top: -7px;
   width: 50px;
