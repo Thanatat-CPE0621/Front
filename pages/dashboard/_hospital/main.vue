@@ -1,11 +1,10 @@
 <template>
   <div class="container">
     <el-row type="flex" justify="end" style="padding:0 16px;">
-      <div>
-        <el-col :span="4">
-          <button class="remove-margin">วันนี้</button>
-        </el-col>
-        <el-col :span="12">
+      <el-col :span="6">
+        <div class="flex">
+          <a-button type="primary" class="remove-margin size-btn">วันนี้</a-button>
+          <!-- <button class="remove-margin">วันนี้</button> -->
           <el-date-picker
             v-model="date"
             type="daterange"
@@ -14,14 +13,17 @@
             end-placeholder="สิ้นสุด"
             :picker-options="pickerOptions"
           ></el-date-picker>
-        </el-col>
-      </div>
+        </div>
+      </el-col>
     </el-row>
     <el-row :gutter="16">
       <queueInWeek/>
       <peakQueue/>
       <avgQueue/>
       <patientInfo/>
+    </el-row>
+    <el-row :gutter="16">
+      <stationCard/>
     </el-row>
   </div>
 </template>
@@ -31,14 +33,15 @@ import queueInWeek from "@/components/dashboard/queueInWeek";
 import peakQueue from "@/components/dashboard/peakQueue";
 import avgQueue from "@/components/dashboard/avgQueue";
 import patientInfo from "@/components/dashboard/patientInfo";
-
+import stationCard from "@/components/dashboard/stationCard";
 export default {
   layout: "dashboard",
   components: {
     queueInWeek,
     peakQueue,
     avgQueue,
-    patientInfo
+    patientInfo,
+    stationCard
   },
   head() {
     return {
@@ -89,6 +92,9 @@ export default {
 </script>
 
 <style scoped>
+.size-btn {
+  height: 37px;
+}
 .el-row {
   margin: 0px 0px !important;
   padding-top: 0px !important;

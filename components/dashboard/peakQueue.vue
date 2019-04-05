@@ -52,6 +52,7 @@ export default {
           }
         },
         xaxis: {
+          // tickPlacement: "between",
           categories: [
             "06.00 - 09.00",
             "09.00 - 12.00",
@@ -170,7 +171,7 @@ export default {
   color: rgb(69, 179, 131);
 }
 .text-highlight {
-  font-size: 1.7em;
+  font-size: 2.5em;
   font-weight: bold;
   color: rgb(69, 179, 131);
   margin: 0px 0px 0px 9px;

@@ -72,8 +72,18 @@ module.exports = {
     extend(config, ctx) {
       config.module.rules.push({
         enforce: 'pre', test: /\.less$/, loader: 'less-loader', options:
-          { "modifyVars": { "primary-color": "#45b383" }, javascriptEnabled: true, cssModules: true }
+          { 
+            "modifyVars": { 
+              "primary-color": "#45b383" 
+            }, 
+            javascriptEnabled: true, 
+            cssModules: true 
+          }
       })
+      ctx.loaders.less.javascriptEnabled = true
+      ctx.loaders.less.modifyVars = {
+          'primary-color':'#45b383',
+      }
       const vueLoader = config.module.rules.find(
         rule => rule.loader === "vue-loader"
       );

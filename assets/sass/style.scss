@@ -4,9 +4,11 @@ $primary-subcolor-color: #578390;
 $font-color:#878887;
 $out-line:#83CCAC;
 $background-color:#f1f2f2;
+$background-color-2:#E4E7EC;
 $card: rgb(204, 204, 204);
 $card-alpha:rgba($card, .5);
 $break: 1440px;
+
 
 @font-face {
     font-family: 'Pontano Sans';
@@ -32,20 +34,25 @@ $break: 1440px;
 
 * {
     font-family: $font-stack !important;
+    -webkit-text-stroke: 0.05px ;
+}
+
+b {
+    -webkit-text-stroke: 0.3px ;
 }
 
 a {
-    font-size: 14px;
-    margin: auto;
-    color: $font-color;
+    font-size: 14px !important;
+    margin: auto !important;
+    color: $font-color !important;
     &:hover {
-        color: $primary-color;
+        color: $primary-color !important;
     }
     &:visited{
-        text-decoration: none;
+        text-decoration: none !important;
     }
     &:link {
-        text-decoration: none;
+        text-decoration: none !important;
       }
 }
 
@@ -58,32 +65,56 @@ a {
     border-width: 0px;
     border-radius: 2px;
     color: $font-color;
+    &.dark{
+        width: 97%;
+        padding: 5px 10px;
+        background-color:$background-color-2;       
+    }
     &:focus{
         outline-width: 1px;
         outline-style: solid;
         outline-color: $out-line;
     }
 }
-
+.title{
+    font-size: 2.5em;
+    font-weight: bold;
+    -webkit-text-stroke: 0.3px ;
+}
 button {
     margin: 10px auto 0px auto;
     padding: 7px 10px;
     background-color: $primary-color;
     font-size: 16px;
-    color: #fff;
+    color: #fff !important;
     border-radius: 2px;
     border-width: 0px;
     cursor: pointer;
+    &.nomal{
+        padding: 2px 10px;
+    }
     &:active{
         background-color: $primary-subcolor-color;
     }
     &:focus{
         outline:none;
     }
+    &.reset{
+        outline:none;
+        background-color: $background-color-2;
+        color: $font-color !important;
+        border-color: $background-color-2;
+        &:hover{
+            color: $font-color;
+            background-color: $background-color-2;
+            border-color: $background-color-2;
+        }
+    }
     &.remove-margin{
         width: 70px;
         margin: 1px;
         padding-top: 7px;
+        margin-right: 7px;
     }
 }
 
@@ -100,16 +131,28 @@ td {
 .flex {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
 }
 
 .flex-between{
     display: flex;
     justify-content: space-between;
 }
+.flex-end{
+    display:flex;
+    justify-content:flex-end
+}
 
 .flex-center{
     display: flex;
     justify-content: center;
+}
+.item-center{
+    align-items:center
 }
 
 .card {
@@ -119,6 +162,10 @@ td {
     padding: 20px;
     margin: 2.5% 2%;
     background-color: white;
+    &.no-margin-top{
+        margin-top: 20px;
+        margin: 20px 20px;
+    }
 }
 
 .card-half {

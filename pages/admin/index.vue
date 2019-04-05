@@ -6,19 +6,30 @@
     <div class="container">
       <el-row type="flex" justify="center">
         <el-col>
-          <el-row>
-            <el-col
-              :span="6"
-              :lg="6"
-              :md="8"
-              :sm="12"
-              :xs="24"
-              v-for="(item, index) in hospitals"
-              :key="index"
-            >
-              <nuxt-link :to="{ path:'/dashboard/'+item.id +'/main'}"></nuxt-link>
-            </el-col>
-          </el-row>
+          <el-col
+            :span="6"
+            :lg="6"
+            :md="8"
+            :sm="12"
+            :xs="24"
+            v-for="(item, index) in hospitals"
+            :key="index"
+          >
+            <nuxt-link :to="{ path:'/dashboard/'+item.id +'/main'}">
+              <div style="height:150px;width:250px;" class="card center-col">
+                <div slot="content">
+                  <div class="container">
+                    <div class="content-center">
+                      <img class="logo" :src="item.logo" @error="imgError">
+                      <div class="container-text">
+                        <label>{{item.name}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nuxt-link>
+          </el-col>
         </el-col>
       </el-row>
     </div>
@@ -80,6 +91,9 @@ export default {
 </script>
 
 <style scoped>
+.el-row {
+  margin-bottom: 20px !important;
+}
 .card {
   box-shadow: rgb(204, 204, 204, 0.7) 3px 4px 20px;
   border-radius: 8px;

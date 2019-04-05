@@ -108,15 +108,36 @@ export default {
           padding: {
             right: 35,
             bottom: 2,
-            left: 35
+            left: 35,
+            top: 20
           }
         },
-        colors: ["#45b383"]
+        colors: ["#45b383"],
+        annotations: {
+          points: [
+            {
+              x: "อ",
+              y: 100,
+
+              label: {
+                offsetY: -5,
+                borderColor: "#000",
+                style: {
+                  fontSize: "16px",
+                  color: "#fff",
+                  background: "#000"
+                  // cssClass: "triangle"
+                },
+                text: "1,532"
+              }
+            }
+          ]
+        }
       },
       series: [
         {
           name: "จำนวนคิว",
-          data: [30, 40, 45, 50, 49, 60, 70]
+          data: [30, 40, 100, 50, 49, 60, 70]
         }
       ]
     };
@@ -125,6 +146,12 @@ export default {
 </script>
 
 <style scoped>
+.triangle {
+  width: 100px;
+  height: 100px;
+  background: red;
+  border-radius: 50%;
+}
 .container-logo-legend {
   display: flex;
   justify-content: space-between;
@@ -164,12 +191,13 @@ export default {
   color: rgb(69, 179, 131);
 }
 .text-highlight {
-  font-size: 1.7em;
+  font-size: 2.5em;
   font-weight: bold;
   color: rgb(69, 179, 131);
   margin: 0px 5px 0px 9px;
 }
 .text-highlight-q {
+  font-size: 1.5em;
   color: rgb(69, 179, 131);
   margin-left: 3px;
 }

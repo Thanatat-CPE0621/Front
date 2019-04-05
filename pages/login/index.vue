@@ -24,12 +24,11 @@
         v-model="password"
       >
     </div>
-    <div class="flex" @click="login()">
+    <div class="flex flex-column" @click="login()">
       <button>ลงชื่อเข้าใช้</button>
-    </div>
-    <div class="flex">
       <a href>Forget your password?</a>
     </div>
+    <div class="flex"></div>
     <div class="container">
       <div class="container-footer green-bar">
         <img src="~/assets/images/queq_element-01.png" class="img-footer">
@@ -68,7 +67,6 @@ export default {
   },
   methods: {
     login() {
-      console.log("object");
       const _this = this;
       let data = new FormData();
       data.append("login_name", _this.login_name);
