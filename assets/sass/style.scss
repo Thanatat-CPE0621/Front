@@ -12,21 +12,21 @@ $break: 1440px;
 
 @font-face {
     font-family: 'Pontano Sans';
-    src: url('../fonts/RSU_light.ttf') format('truetype');
+    src: url('~assets/fonts/RSU_light.ttf') format('truetype');
     font-weight: lighter;
     font-style: lighter;
 }
 
 @font-face {
     font-family: 'Pontano Sans';
-    src: url('../fonts/RSU_Regular.ttf') format('truetype');
+    src: url('~assets/fonts/RSU_Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
     
 @font-face {
     font-family: 'Pontano Sans';
-    src: url('../fonts/RSU_Bold.ttf') format('truetype');
+    src: url('~assets/fonts/RSU_Bold.ttf') format('truetype');
     font-weight: Bold;
     font-style: Bold;
 
