@@ -1,55 +1,87 @@
 <template>
   <div class="container">
-    <el-container style="height: 100%;">
-      <el-header style="padding:0px;">
-        <navbar/>
-      </el-header>
-      <el-container>
-        <el-aside width="112px" class="left-bar">
-          <div class="item-center-bar">
-            <img
-              class="logo-nav"
-              :src="isHoverDefault[0]"
-              :class="isActive[0] ? 'hover' : null"
-              @mouseleave="mouseleave(0)"
-              @mouseover="mouseOver(0)"
-            >
-            <img
-              class="logo-nav"
-              :src="isHoverDefault[1]"
-              :class="{ 'hover'  :isActive[1]}"
-              @mouseleave="mouseleave(1)"
-              @mouseover="mouseOver(1)"
-            >
-            <img
-              class="logo-nav"
-              :src="isHoverDefault[2]"
-              :class="isActive[2] ? 'hover' : null"
-              @mouseleave="mouseleave(2)"
-              @mouseover="mouseOver(2)"
-            >
-            <img
-              class="logo-nav"
-              :src="isHoverDefault[3]"
-              :class="isActive[3] ? 'hover' : null"
-              @mouseleave="mouseleave(3)"
-              @mouseover="mouseOver(3)"
-            >
-            <img
-              style="margin-left:2px;"
-              class="logo-nav"
-              :src="isHoverDefault[4]"
-              :class="isActive[4] ? 'hover' : null"
-              @mouseleave="mouseleave(4)"
-              @mouseover="mouseOver(4)"
-            >
-          </div>
-        </el-aside>
-        <el-main>
-          <nuxt/>
-        </el-main>
+    <no-ssr>
+      <el-container style="height: 100%;">
+        <el-header style="padding:0px;">
+          <navbar/>
+        </el-header>
+        <el-container>
+          <el-aside width="112px" class="left-bar">
+            <div class="item-center-bar">
+              <nuxt-link :to="{ path:'/admin/hospital'}">
+                <img
+                  class="logo-nav"
+                  :src="isHoverDefault[0]"
+                  :class="[isActive[0] ? 'hover' : null,this.$route.name=='admin-hospital' ? 'hover' :null]"
+                  @mouseleave="mouseleave(0)"
+                  @mouseover="mouseOver(0)"
+                >
+                <span
+                  class="titleLogo text-center"
+                  :class="this.$route.name=='admin-hospital' && 'active' "
+                >โรงพยาบาล</span>
+              </nuxt-link>
+              <nuxt-link :to="{ path:'/admin/station'}">
+                <img
+                  class="logo-nav"
+                  :src="isHoverDefault[1]"
+                  :class="[isActive[1] ? 'hover' : null,this.$route.name=='admin-station' ? 'hover' :null]"
+                  @mouseleave="mouseleave(1)"
+                  @mouseover="mouseOver(1)"
+                >
+                <span
+                  class="titleLogo text-center"
+                  :class="this.$route.name=='admin-station' && 'active' "
+                >แผนก</span>
+              </nuxt-link>
+              <nuxt-link :to="{ path:'/admin/room'}">
+                <img
+                  class="logo-nav"
+                  :src="isHoverDefault[2]"
+                  :class="[isActive[2] ? 'hover' : null,this.$route.name=='admin-room' ? 'hover' :null]"
+                  @mouseleave="mouseleave(2)"
+                  @mouseover="mouseOver(2)"
+                >
+                <span
+                  class="titleLogo text-center"
+                  :class="this.$route.name=='admin-room' && 'active' "
+                >ห้อง</span>
+              </nuxt-link>
+              <nuxt-link :to="{ path:'/admin/staff'}">
+                <img
+                  class="logo-nav"
+                  :src="isHoverDefault[3]"
+                  :class="[isActive[3] ? 'hover' : null,this.$route.name=='admin-staff' ? 'hover' :null]"
+                  @mouseleave="mouseleave(3)"
+                  @mouseover="mouseOver(3)"
+                >
+                <span
+                  class="titleLogo text-center"
+                  :class="this.$route.name=='admin-staff' && 'active' "
+                >ผู้ใช้งาน</span>
+              </nuxt-link>
+              <nuxt-link :to="{ path:'/admin/mail'}">
+                <img
+                  style="margin-left:2px;"
+                  class="logo-nav"
+                  :src="isHoverDefault[4]"
+                  :class="[isActive[4] ? 'hover' : null,this.$route.name=='admin-mail' ? 'hover' :null]"
+                  @mouseleave="mouseleave(4)"
+                  @mouseover="mouseOver(4)"
+                >
+                <span
+                  class="titleLogo text-center"
+                  :class="this.$route.name=='admin-mail' && 'active' "
+                >อีเมล์</span>
+              </nuxt-link>
+            </div>
+          </el-aside>
+          <el-main>
+            <nuxt/>
+          </el-main>
+        </el-container>
       </el-container>
-    </el-container>
+    </no-ssr>
   </div>
 </template>
 
@@ -63,6 +95,9 @@ import navbar from "~/components/navbar";
 export default {
   components: {
     navbar
+  },
+  created() {
+    console.log(this.$route);
   },
   data() {
     return {
@@ -88,15 +123,23 @@ export default {
 
 
 <style scoped >
+a {
+  margin: 0px !important;
+}
+.titleLogo {
+  margin-top: -12px !important;
+}
 .hover {
   filter: invert(55%) sepia(41%) saturate(570%) hue-rotate(103deg)
     brightness(111%) contrast(88%);
 }
-
+.active {
+  color: #45b383;
+}
 .logo-nav {
   padding-top: 25px;
   cursor: pointer;
-  width: 110px;
+  width: 130px;
 }
 .container {
   height: 100vh;

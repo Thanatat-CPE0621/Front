@@ -1,9 +1,7 @@
-<template>
-</template>
+<template></template>
 <script>
-
 export default {
-middleware: 'login'
-}
+  middleware: "login"
+};
 </script>
 

@@ -1,6 +1,13 @@
 <template>
   <div>
-    <div class="flex-center">
+    <div class="flex flex-end">
+      <div>
+        <nuxt-link to="/admin/hospital">
+          <a-button icon="setting" type="primary">จัดการ</a-button>
+        </nuxt-link>
+      </div>
+    </div>
+    <div class="flex flex-center">
       <input type="text" class="search input" placeholder="ค้นหา">
     </div>
     <div class="container">

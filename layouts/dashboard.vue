@@ -14,7 +14,10 @@
               @mouseleave="mouseleave(0)"
               @mouseover="mouseOver(0)"
             >
-            <span class="text-center">หน้าหลัก</span>
+            <span
+              class="text-center"
+              :class="this.$route.name=='dashboard-hospital-main' && 'active' "
+            >หน้าหลัก</span>
           </nuxt-link>
           <nuxt-link :to="{ path:'/dashboard/'+hID+'/qall'}">
             <img
@@ -24,8 +27,14 @@
               @mouseleave="mouseleave(1)"
               @mouseover="mouseOver(1)"
             >
-            <span class="text-center">{{`กราฟคิวรวม`}}</span>
-            <span class="text-center">{{`ทั้งโรงพยาบาล`}}</span>
+            <span
+              class="text-center"
+              :class="this.$route.name=='dashboard-hospital-qall' && 'active' "
+            >{{`กราฟคิวรวม`}}</span>
+            <span
+              class="text-center"
+              :class="this.$route.name=='dashboard-hospital-qall' && 'active' "
+            >{{`ทั้งโรงพยาบาล`}}</span>
           </nuxt-link>
           <nuxt-link :to="{ path:'/dashboard/'+hID+'/maxtime'}">
             <img
@@ -35,8 +44,14 @@
               @mouseleave="mouseleave(2)"
               @mouseover="mouseOver(2)"
             >
-            <span class="text-center">{{`กราฟช่วงเวลา`}}</span>
-            <span class="text-center">{{`ที่ใช้บริการสูงสุด`}}</span>
+            <span
+              class="text-center"
+              :class="this.$route.name=='dashboard-hospital-maxtime' && 'active' "
+            >{{`กราฟช่วงเวลา`}}</span>
+            <span
+              class="text-center"
+              :class="this.$route.name=='dashboard-hospital-maxtime' && 'active' "
+            >{{`ที่ใช้บริการสูงสุด`}}</span>
           </nuxt-link>
           <nuxt-link :to="{ path:'/dashboard/'+hID+'/export'}">
             <img
@@ -46,7 +61,10 @@
               @mouseleave="mouseleave(3)"
               @mouseover="mouseOver(3)"
             >
-            <span class="text-center">Export</span>
+            <span
+              class="text-center"
+              :class="this.$route.name=='dashboard-hospital-export' && 'active' "
+            >Export</span>
           </nuxt-link>
         </div>
       </el-aside>
@@ -129,6 +147,9 @@ html {
 .hover {
   filter: invert(55%) sepia(41%) saturate(570%) hue-rotate(103deg)
     brightness(111%) contrast(88%);
+}
+.active {
+  color: #45b383;
 }
 .logo {
   cursor: pointer;
