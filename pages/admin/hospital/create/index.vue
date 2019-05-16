@@ -13,26 +13,46 @@
         <div class="title">Add Hospital</div>
       </div>
       <div class="flex-center">
+        <a-form :form="form" @submit="handleSubmit">
+          <a-form-item label="Hospital Name" :label-col="{ span: 10 }" :wrapper-col="{ span: 12 }">
+            <a-input
+              v-decorator="[
+                'name',
+                {rules: [{ required: true, message: 'Please input  hospital name !' }]}
+              ]"
+            />
+          </a-form-item>
+          <a-form-item label="Status" :label-col="{ span: 10 }" :wrapper-col="{ span: 12 }">
+            <a-input
+              v-decorator="[
+                'status',
+                {rules: [{ required: true, message: 'Please input  hospital name !' }]}
+              ]"
+            />
+          </a-form-item>
+        </a-form>
+        <!-- 
         <table>
           <tr>
             <td class="label">
               <span class="red">*</span>Hospital Name
             </td>
             <td>
-              <input type="text" class="form-input">
+              <a-input
+                v-decorator="[
+                'name',
+                  {rules: [{ required: true, message: 'Please input hospital name!' }]}
+                ]"
+              />
             </td>
           </tr>
           <tr>
             <td class="label">Status</td>
             <td class="flex">
-              <div>
-                <input type="radio" name="test">
-                <label for="test">Enabel</label>
-              </div>
-              <div>
-                <input type="radio" name="test">
-                <label for="stest">Enabel</label>
-              </div>
+              <a-radio-group v-model="valueRadio">
+                <a-radio :value="1">A</a-radio>
+                <a-radio :value="2">B</a-radio>
+              </a-radio-group>
             </td>
           </tr>
           <tr>
@@ -47,7 +67,7 @@
             <td class="label">Mobile Logo</td>
             <td>sss</td>
           </tr>
-        </table>
+        </table>-->
       </div>
     </div>
   </div>
@@ -60,6 +80,12 @@ export default {
   head() {
     return {
       title: "Create Hospital : QueQ Hospital Warroom"
+    };
+  },
+  data() {
+    return {
+      valueRadio: 1,
+      form: this.$form.createForm(this)
     };
   }
 };

@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 context('Login Page', () => {
-    
+
     beforeEach(() => {
         cy.visit('http://localhost:3000/login')
     })
@@ -12,29 +12,29 @@ context('Login Page', () => {
         cy.get('.gap-top > .input')
             .type('namename')
             .should('have.value', 'namename')
-            // .type('knownamenow', { delay: 100 })
+        // .type('knownamenow', { delay: 100 })
         cy.get(':nth-child(4) > .input')
             .type('namename')
             .should('have.value', 'namename')
-            // .type('knownamenow', { delay: 100 })
+        // .type('knownamenow', { delay: 100 })
         cy.get('button').click()
         // cy.route('GET', 'login/*', 'fixture:activities.json')
         // cy.visit('http://localhost:3000/admin');
-         cy.url().should('eq', 'http://localhost:3000/admin');
+        cy.url().should('eq', 'http://localhost:3000/admin');
         // 
     })
-    
-    // it('check responsive',()=>{
-    //     cy.viewport('ipad-mini')
-    //     cy.wait(500)
-    //     cy.viewport('ipad-2')
-    //     cy.wait(500)
-    //     cy.viewport('macbook-11')
-    //     cy.wait(500)
-    //     cy.viewport('macbook-13')
-    //     cy.wait(500)
-    //     cy.viewport('macbook-15')
-    // })
+
+    it('check responsive', () => {
+        cy.viewport('ipad-mini')
+        cy.wait(500)
+        cy.viewport('ipad-2')
+        cy.wait(500)
+        cy.viewport('macbook-11')
+        cy.wait(500)
+        cy.viewport('macbook-13')
+        cy.wait(500)
+        cy.viewport('macbook-15')
+    })
 
 
 })
