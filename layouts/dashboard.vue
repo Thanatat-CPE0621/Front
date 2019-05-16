@@ -10,43 +10,61 @@
             <img
               class="logo-nav"
               :src="isHoverDefault[0]"
-              :class="[isActive[0] ? 'hover' : null,this.$route.name=='dashboard-hospital-main' ? 'hover' :null]"
+              :class="[isActive[0] ? 'hover' : null, findActive('dashboard-hospital-main') ? 'hover' :null]"
               @mouseleave="mouseleave(0)"
               @mouseover="mouseOver(0)"
             >
-            <span class="text-center">หน้าหลัก</span>
+            <span
+              class="text-center"
+              :class="findActive('dashboard-hospital-main')  && 'active' "
+            >หน้าหลัก</span>
           </nuxt-link>
           <nuxt-link :to="{ path:'/dashboard/'+hID+'/qall'}">
             <img
               class="logo-nav"
               :src="isHoverDefault[1]"
-              :class="[isActive[1] ? 'hover' : null,this.$route.name=='dashboard-hospital-qall' ? 'hover' :null]"
+              :class="[isActive[1] ? 'hover' : null,findActive('dashboard-hospital-qall') ? 'hover' :null]"
               @mouseleave="mouseleave(1)"
               @mouseover="mouseOver(1)"
             >
-            <span class="text-center">{{`กราฟคิวรวม`}}</span>
-            <span class="text-center">{{`ทั้งโรงพยาบาล`}}</span>
+            <span
+              class="text-center"
+              :class="findActive('dashboard-hospital-qall') && 'active' "
+            >{{`กราฟคิวรวม`}}</span>
+            <span
+              class="text-center"
+              :class="findActive('dashboard-hospital-qall')  && 'active' "
+            >{{`ทั้งโรงพยาบาล`}}</span>
           </nuxt-link>
           <nuxt-link :to="{ path:'/dashboard/'+hID+'/maxtime'}">
             <img
               class="logo-nav"
               :src="isHoverDefault[2]"
-              :class="[isActive[2] ? 'hover' : null,this.$route.name=='dashboard-hospital-maxtime' ? 'hover' :null]"
+              :class="[isActive[2] ? 'hover' : null,findActive('dashboard-hospital-maxtime') ? 'hover' :null]"
               @mouseleave="mouseleave(2)"
               @mouseover="mouseOver(2)"
             >
-            <span class="text-center">{{`กราฟช่วงเวลา`}}</span>
-            <span class="text-center">{{`ที่ใช้บริการสูงสุด`}}</span>
+            <span
+              class="text-center"
+              :class="findActive('dashboard-hospital-maxtime') && 'active' "
+            >{{`กราฟช่วงเวลา`}}</span>
+            <span
+              class="text-center"
+              :class="findActive('dashboard-hospital-maxtime') && 'active' "
+            >{{`ที่ใช้บริการสูงสุด`}}</span>
           </nuxt-link>
           <nuxt-link :to="{ path:'/dashboard/'+hID+'/export'}">
             <img
               class="logo-nav"
               :src="isHoverDefault[3]"
-              :class="[isActive[3] ? 'hover' : null,this.$route.name=='dashboard-hospital-export' ? 'hover' :null]"
+              :class="[isActive[3] ? 'hover' : null,findActive('dashboard-hospital-export') ? 'hover' :null]"
               @mouseleave="mouseleave(3)"
               @mouseover="mouseOver(3)"
             >
-            <span class="text-center">Export</span>
+            <span
+              class="text-center"
+              :class="findActive('dashboard-hospital-export') && 'active' "
+            >Export</span>
           </nuxt-link>
         </div>
       </el-aside>
@@ -82,6 +100,10 @@ export default {
     _this.hID = this.$nuxt._route.params.hospital;
   },
   methods: {
+    findActive(path) {
+      const route = this.$route.name;
+      return RegExp("\\b" + path + "\\b").test(route);
+    },
     mouseOver(index) {
       const _this = this;
       _this.isActive[index] = true;
@@ -130,6 +152,9 @@ html {
   filter: invert(55%) sepia(41%) saturate(570%) hue-rotate(103deg)
     brightness(111%) contrast(88%);
 }
+.active {
+  color: #45b383;
+}
 .logo {
   cursor: pointer;
   margin: auto 20px;
@@ -173,7 +198,6 @@ html {
 }
 nav {
   width: 100%;
-  height: 6vh;
   display: flex;
   background: white;
   position: relative;

@@ -3,7 +3,9 @@
     <div class="card">
       <div class="card-half">
         <div class="gap flex-between">
-          <img src="@/assets/images/dashboard/gicon-4.png" style="height: 90px;width: 90px;">
+          <div class="flex">
+            <img src="@/assets/images/dashboard/gicon-4.png" style="height: 90px;width: 90px;">
+          </div>
           <div class="box-content">
             <div class="title-card">ข้อมูลการใช้งานผู้ป่วย</div>
             <div class="box-gender">

@@ -39,8 +39,11 @@ module.exports = {
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/antd-vue',
+    '@/plugins/vue-fontawesome',
+    { src: '@/plugins/dnd', ssr: false },
     { src: '@/plugins/apex-chart', ssr: false },
-    { src: '@/plugins/localStorage.js', ssr: false }
+    { src: '@/plugins/localStorage', ssr: false }
+
   ],
 
   /*
@@ -50,7 +53,7 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    ['@nuxtjs/moment', { locales: ['th', 'es-us'], defaultLocale: 'th' }]
+    // ['@nuxtjs/moment', { locales: ['th', 'es-us'], defaultLocale: 'th' }]
   ],
   /*
   ** Axios module configuration
@@ -58,7 +61,6 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
-
   /*
   ** Build configuration
   */
@@ -72,17 +74,17 @@ module.exports = {
     extend(config, ctx) {
       config.module.rules.push({
         enforce: 'pre', test: /\.less$/, loader: 'less-loader', options:
-          { 
-            "modifyVars": { 
-              "primary-color": "#45b383" 
-            }, 
-            javascriptEnabled: true, 
-            cssModules: true 
-          }
+        {
+          "modifyVars": {
+            "primary-color": "#45b383"
+          },
+          javascriptEnabled: true,
+          cssModules: true
+        }
       })
       ctx.loaders.less.javascriptEnabled = true
       ctx.loaders.less.modifyVars = {
-          'primary-color':'#45b383',
+        'primary-color': '#45b383',
       }
       const vueLoader = config.module.rules.find(
         rule => rule.loader === "vue-loader"

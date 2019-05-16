@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "maxtimeDay",
   data() {
@@ -36,10 +37,9 @@ export default {
       years: [
         {
           value: "7years",
-          label: `${this.$nuxt
-            .$moment()
+          label: `${moment()
             .subtract(6, "year")
-            .format("YYYY")}-${this.$nuxt.$moment().format("YYYY")}`
+            .format("YYYY")}-${moment().format("YYYY")}`
         }
       ],
       options: {
@@ -52,12 +52,12 @@ export default {
         },
         dataLabels: {
           enabled: true,
-          offsetY: -15,
+          // offsetY: -15,
           style: {
             fontSize: "16px",
             colors: ["#45b383"]
-          },
-          textAnchor: "middle"
+          }
+          // textAnchor: "top"
         },
         xaxis: {
           tickPlacement: "between",
@@ -72,7 +72,7 @@ export default {
             "21.00 - 24.00 น."
           ],
           labels: {
-            offsetY: -7,
+            offsetY: -5,
             maxHeight: 10,
             style: {
               colors: "#808297",
@@ -84,13 +84,16 @@ export default {
           }
         },
         yaxis: {
-          tickAmount: 4,
+          tickAmount: 5,
           show: true,
           max: function(max) {
             return max * 1.2;
           },
+          min: function(min) {
+            return -min * 0.2;
+          },
           labels: {
-            offsetY: -10,
+            offsetX: 15,
             style: {
               color: "#808297",
               fontSize: "15px"
@@ -120,7 +123,7 @@ export default {
       series: [
         {
           name: "จำนวนคิว",
-          data: [354530, 234402, 143543, 503623, 455359, 642560, 576660, 576660]
+          data: [354530, 234402, 0, 503623, 455359, 642560, 576660, 576660]
         }
       ]
     };

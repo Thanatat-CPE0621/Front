@@ -7,7 +7,7 @@
           <div class="q">
             <div class="text-highlight">15.00 - 18.00 น.</div>
           </div>
-          <div>{{this.$nuxt.$moment(value).format('MMMM YYYY')}}</div>
+          <div>{{value}}</div>
         </div>
         <div class="flex-column flex-end">
           <div class="flex">
@@ -29,11 +29,12 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "maxtimeMonth",
   data() {
     return {
-      value: this.$nuxt.$moment(),
+      value: moment().format("MMMM YYYY"),
       options: {
         chart: {
           toolbar: {
@@ -42,7 +43,7 @@ export default {
         },
         dataLabels: {
           enabled: true,
-          offsetY: -15,
+
           style: {
             fontSize: "16px",
             colors: ["#F9A01D"]
@@ -73,13 +74,16 @@ export default {
           }
         },
         yaxis: {
+          tickAmount: 5,
           show: true,
           max: function(max) {
             return max * 1.2;
           },
+          min: function(min) {
+            return -min * 0.2;
+          },
           labels: {
-            offsetX: 20,
-            offsetY: -10,
+            offsetX: 15,
             style: {
               color: "#808297",
               fontSize: "15px"

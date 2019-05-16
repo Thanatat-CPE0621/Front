@@ -44,7 +44,6 @@ export default {
 
         dataLabels: {
           enabled: true,
-          offsetY: -15,
           style: {
             fontSize: "16px",
             colors: ["#8199CE"],
@@ -77,14 +76,16 @@ export default {
           }
         },
         yaxis: {
-          tickAmount: 4,
+          tickAmount: 5,
           show: true,
           max: function(max) {
             return max * 1.2;
           },
+          min: function(min) {
+            return -min * 0.2;
+          },
           labels: {
-            offsetX: 20,
-            offsetY: -10,
+            offsetX: 15,
             style: {
               color: "#808297",
               fontSize: "15px"

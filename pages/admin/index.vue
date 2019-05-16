@@ -1,6 +1,13 @@
 <template>
   <div>
-    <div class="flex-center">
+    <div class="flex flex-end">
+      <div>
+        <nuxt-link to="/admin/hospital">
+          <a-button icon="setting" type="primary">จัดการ</a-button>
+        </nuxt-link>
+      </div>
+    </div>
+    <div class="flex flex-center">
       <input type="text" class="search input" placeholder="ค้นหา">
     </div>
     <div class="container">
@@ -48,7 +55,11 @@ import apiService from "@/service/index";
 import noLogo from "@/assets/images/hospitalLogo.png";
 export default {
   layout: "hospital",
-
+  head() {
+    return {
+      title: "Hospital : QueQ Hospital Warroom"
+    };
+  },
   computed: {
     hospitals() {
       return this.$store.state.hospital.hospitals;

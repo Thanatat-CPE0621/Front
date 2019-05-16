@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-half">
           <div class="gap flex-between">
-            <div>
+            <div class="flex">
               <img class="bg-img" :src="status[0].img" style="height: 130px;width: 130px;">
             </div>
             <div class="box-content">

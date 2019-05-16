@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "qallYear",
   data() {
@@ -40,10 +41,9 @@ export default {
       years: [
         {
           value: "7years",
-          label: `${this.$nuxt
-            .$moment()
+          label: `${moment()
             .subtract(6, "year")
-            .format("YYYY")}-${this.$nuxt.$moment().format("YYYY")}`
+            .format("YYYY")}-${moment().format("YYYY")}`
         }
       ],
       options: {
@@ -71,31 +71,25 @@ export default {
         },
         xaxis: {
           categories: [
-            this.$nuxt
-              .$moment()
+            moment()
               .subtract(6, "year")
               .format("YYYY"),
-            this.$nuxt
-              .$moment()
+            moment()
               .subtract(5, "year")
               .format("YYYY"),
-            this.$nuxt
-              .$moment()
+            moment()
               .subtract(4, "year")
               .format("YYYY"),
-            this.$nuxt
-              .$moment()
+            moment()
               .subtract(3, "year")
               .format("YYYY"),
-            this.$nuxt
-              .$moment()
+            moment()
               .subtract(2, "year")
               .format("YYYY"),
-            this.$nuxt
-              .$moment()
+            moment()
               .subtract(1, "year")
               .format("YYYY"),
-            this.$nuxt.$moment().format("YYYY")
+            moment().format("YYYY")
           ],
           labels: {
             offsetY: -7,

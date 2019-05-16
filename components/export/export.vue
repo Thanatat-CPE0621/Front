@@ -16,10 +16,12 @@
                 :wrapper-col="{ span: 15 }"
               >
                 <a-select
-                  defaultValue="lucy"
                   v-decorator="[
                     'type',
-                    {rules: [{ required: true, message: 'Please input your note!' }]}
+                    {rules: [{ required: true, message: 'Please input your note!' }]},
+                    {
+                      initialValue:'lucy'
+                    }
                   ]"
                 >
                   <a-select-option :value="1">คิวโรงพยาบาล</a-select-option>
@@ -49,7 +51,6 @@
                     'date_range',
                     {rules: [{ required: true, message: 'Please input your note!' }]}
                   ]"
-                  :ranges="{ 'วันนี้': [this.$nuxt.$moment(), this.$nuxt.$moment()], 'เดือนนี้': [this.$nuxt.$moment(), this.$nuxt.$moment().endOf('month')] }"
                 />
               </a-form-item>
               <a-form-item
@@ -63,7 +64,10 @@
                   :defaultValue="1"
                   v-decorator="[
                     'file_type',
-                    {rules: [{ required: true, message: 'Please input your note!' }]}
+                    {rules: [{ required: true, message: 'Please input your note!' }]},
+                    {
+                      initialValue:1
+                    }
                   ]"
                 >
                   <a-radio :value="1">Excel</a-radio>
