@@ -70,9 +70,13 @@ export default {
           }
         },
         yaxis: {
+          tickAmount: 5,
           show: false,
           max: function(max) {
             return max * 1.5;
+          },
+          min: function(min) {
+            return -min * 0.2;
           }
         },
         grid: {

@@ -25,7 +25,7 @@
       >
     </div>
     <div class="flex flex-column" @click="login()">
-      <button>ลงชื่อเข้าใช้</button>
+      <button type="submit">ลงชื่อเข้าใช้</button>
       <a href>Forget your password?</a>
     </div>
     <div class="flex"></div>
@@ -43,23 +43,11 @@ import { Modal } from "ant-design-vue";
 export default {
   data() {
     return {
-      login_name: "namename",
-      password: "namename"
+      login_name: "",
+      password: ""
     };
   },
-  created() {
-    if (this.$store.state.user.hasOwnProperty("userData")) {
-      if (this.$store.state.user.userData.hasOwnProperty("role")) {
-        if (this.$store.state.user.userData.role.id === 53) {
-          this.$router.push("/admin");
-        } else {
-          this.$router.push(
-            `/dashboard/${this.$store.state.user.userData.hospital.id}/main`
-          );
-        }
-      }
-    }
-  },
+  created() {},
   head() {
     return {
       title: "QueQ Hopsital Warroom : Login"
@@ -67,13 +55,13 @@ export default {
   },
   methods: {
     login() {
+      window.$nuxt.$root.$loading.start();
       const _this = this;
       let data = new FormData();
       data.append("login_name", _this.login_name);
       data.append("password", _this.password);
-      window.$nuxt.$root.$loading.start();
       apiService
-        .post("user/login", data)
+        .post("staff/login", data)
         .then(res => {
           console.log("res:", res);
           const { data } = res.data;
@@ -85,14 +73,12 @@ export default {
           this.$store.commit("user/setUserData", {
             user: data,
             isLogin: true,
-            token: data.user.token
+            token: data.user.user_token
           });
-          if (this.$store.state.user.userData.role.id === 53) {
+          if (data.role.is_super_admin) {
             this.$router.push("/admin");
           } else {
-            this.$router.push(
-              `/dashboard/${this.$store.state.user.userData.hospital.id}/main`
-            );
+            this.$router.push(`/dashboard/${data.hospital.hospital_id}/main`);
           }
           window.$nuxt.$root.$loading.finish();
         })

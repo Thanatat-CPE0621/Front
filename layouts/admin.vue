@@ -5,59 +5,59 @@
         <el-header style="padding:0px;">
           <navbar/>
         </el-header>
-        <el-container>
+        <el-container style="background-color: #f1f2f2;">
           <el-aside width="112px" class="left-bar">
             <div class="item-center-bar">
               <nuxt-link :to="{ path:'/admin/hospital'}">
                 <img
                   class="logo-nav"
                   :src="isHoverDefault[0]"
-                  :class="[isActive[0] ? 'hover' : null,this.$route.name=='admin-hospital' ? 'hover' :null]"
+                  :class="[isActive[0] ? 'hover' : null,findActive('admin-hospital') ? 'hover' :null]"
                   @mouseleave="mouseleave(0)"
                   @mouseover="mouseOver(0)"
                 >
                 <span
                   class="titleLogo text-center"
-                  :class="this.$route.name=='admin-hospital' && 'active' "
+                  :class="findActive('admin-hospital')  && 'active' "
                 >โรงพยาบาล</span>
               </nuxt-link>
               <nuxt-link :to="{ path:'/admin/station'}">
                 <img
                   class="logo-nav"
                   :src="isHoverDefault[1]"
-                  :class="[isActive[1] ? 'hover' : null,this.$route.name=='admin-station' ? 'hover' :null]"
+                  :class="[isActive[1] ? 'hover' : null,findActive('admin-station') ? 'hover' :null]"
                   @mouseleave="mouseleave(1)"
                   @mouseover="mouseOver(1)"
                 >
                 <span
                   class="titleLogo text-center"
-                  :class="this.$route.name=='admin-station' && 'active' "
+                  :class="findActive('admin-station')  && 'active' "
                 >แผนก</span>
               </nuxt-link>
               <nuxt-link :to="{ path:'/admin/room'}">
                 <img
                   class="logo-nav"
                   :src="isHoverDefault[2]"
-                  :class="[isActive[2] ? 'hover' : null,this.$route.name=='admin-room' ? 'hover' :null]"
+                  :class="[isActive[2] ? 'hover' : null,findActive('admin-room')  ? 'hover' :null]"
                   @mouseleave="mouseleave(2)"
                   @mouseover="mouseOver(2)"
                 >
                 <span
                   class="titleLogo text-center"
-                  :class="this.$route.name=='admin-room' && 'active' "
+                  :class="findActive('admin-room') && 'active' "
                 >ห้อง</span>
               </nuxt-link>
               <nuxt-link :to="{ path:'/admin/staff'}">
                 <img
                   class="logo-nav"
                   :src="isHoverDefault[3]"
-                  :class="[isActive[3] ? 'hover' : null,this.$route.name=='admin-staff' ? 'hover' :null]"
+                  :class="[isActive[3] ? 'hover' : null,findActive('admin-staff')  ? 'hover' :null]"
                   @mouseleave="mouseleave(3)"
                   @mouseover="mouseOver(3)"
                 >
                 <span
                   class="titleLogo text-center"
-                  :class="this.$route.name=='admin-staff' && 'active' "
+                  :class="findActive('admin-staff')  && 'active' "
                 >ผู้ใช้งาน</span>
               </nuxt-link>
               <nuxt-link :to="{ path:'/admin/mail'}">
@@ -65,13 +65,13 @@
                   style="margin-left:2px;"
                   class="logo-nav"
                   :src="isHoverDefault[4]"
-                  :class="[isActive[4] ? 'hover' : null,this.$route.name=='admin-mail' ? 'hover' :null]"
+                  :class="[isActive[4] ? 'hover' : null,findActive('admin-mail') ? 'hover' :null]"
                   @mouseleave="mouseleave(4)"
                   @mouseover="mouseOver(4)"
                 >
                 <span
                   class="titleLogo text-center"
-                  :class="this.$route.name=='admin-mail' && 'active' "
+                  :class="findActive('admin-mail')  && 'active' "
                 >อีเมล์</span>
               </nuxt-link>
             </div>
@@ -96,9 +96,6 @@ export default {
   components: {
     navbar
   },
-  created() {
-    console.log(this.$route);
-  },
   data() {
     return {
       isHoverDefault: [gicon0, gicon1, gicon2, gicon3, gicon4],
@@ -107,6 +104,10 @@ export default {
     };
   },
   methods: {
+    findActive(path) {
+      const route = this.$route.name;
+      return RegExp("\\b" + path + "\\b").test(route);
+    },
     mouseOver(index) {
       const _this = this;
       _this.isActive[index] = true;
@@ -157,19 +158,19 @@ a {
 
 nav {
   width: 100%;
-  height: 6vh;
+  /* height: 6vh; */
   display: flex;
   background: white;
   position: relative;
   justify-content: space-between;
 }
 .left-bar {
-  margin-top: 6px;
   width: 100px;
   /* height: 91vh; */
   background: #fff;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 .content {
   margin: 10px;

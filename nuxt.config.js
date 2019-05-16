@@ -39,8 +39,11 @@ module.exports = {
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/antd-vue',
+    '@/plugins/vue-fontawesome',
+    { src: '@/plugins/dnd', ssr: false },
     { src: '@/plugins/apex-chart', ssr: false },
-    { src: '@/plugins/localStorage.js', ssr: false }
+    { src: '@/plugins/localStorage', ssr: false }
+
   ],
 
   /*
@@ -58,7 +61,6 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
-
   /*
   ** Build configuration
   */
@@ -70,33 +72,33 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-      // config.module.rules.push({
-      //   enforce: 'pre', test: /\.less$/, loader: 'less-loader', options:
-      //     { 
-      //       "modifyVars": { 
-      //         "primary-color": "#45b383" 
-      //       }, 
-      //       javascriptEnabled: true, 
-      //       cssModules: true 
-      //     }
-      // })
-      // ctx.loaders.less.javascriptEnabled = true
-      // ctx.loaders.less.modifyVars = {
-      //     'primary-color':'#45b383',
-      // }
-      // const vueLoader = config.module.rules.find(
-      //   rule => rule.loader === "vue-loader"
-      // );
-      // vueLoader.options.transformToRequire = {
-      //   img: "src",
-      //   image: "xlink:href",
-      //   "b-img": "src",
-      //   "b-img-lazy": ["src", "blank-src"],
-      //   "b-card": "img-src",
-      //   "b-card-img": "img-src",
-      //   "b-carousel-slide": "img-src",
-      //   "b-embed": "src"
-      // };
+      config.module.rules.push({
+        enforce: 'pre', test: /\.less$/, loader: 'less-loader', options:
+        {
+          "modifyVars": {
+            "primary-color": "#45b383"
+          },
+          javascriptEnabled: true,
+          cssModules: true
+        }
+      })
+      ctx.loaders.less.javascriptEnabled = true
+      ctx.loaders.less.modifyVars = {
+        'primary-color': '#45b383',
+      }
+      const vueLoader = config.module.rules.find(
+        rule => rule.loader === "vue-loader"
+      );
+      vueLoader.options.transformToRequire = {
+        img: "src",
+        image: "xlink:href",
+        "b-img": "src",
+        "b-img-lazy": ["src", "blank-src"],
+        "b-card": "img-src",
+        "b-card-img": "img-src",
+        "b-carousel-slide": "img-src",
+        "b-embed": "src"
+      };
     }
   }
 }

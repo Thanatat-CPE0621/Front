@@ -9,7 +9,7 @@
             <div class="text-highlight">15532</div>
             <div class="text-highlight-q">คิว</div>
           </div>
-          <div>{{this.$nuxt.$moment(value).format('YYYY')}}</div>
+          <div>{{value}}</div>
         </div>
         <div>
           <el-date-picker v-model="value" type="year" placeholder="Pick a year"></el-date-picker>
@@ -25,11 +25,12 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "qallMonth",
   data() {
     return {
-      value: this.$nuxt.$moment(),
+      value: moment().format("YYYY"),
       options: {
         plotOptions: {
           bar: {

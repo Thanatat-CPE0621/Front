@@ -3,7 +3,9 @@
     <div class="card gap-down">
       <div class="card-half">
         <div class="gap flex-between">
-          <img src="@/assets/images/dashboard/gicon-3.png" style="height: 90px;width: 90px;">
+          <div>
+            <img src="@/assets/images/dashboard/gicon-3.png" style="height: 90px;width: 90px;">
+          </div>
           <div class="box-content">
             <div class="title-card">เวลาเฉลี่ยต่อคิว</div>
             <div class="q">

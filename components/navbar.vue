@@ -21,7 +21,8 @@
     <div class="nav-text">
       <a-tooltip placement="bottom">
         <template slot="title">
-          <div slot="content">UI Ver.1.0.17
+          <div slot="content">
+            UI Ver.1.0.17
             <br>API Ver.1.0.17
           </div>
         </template>
@@ -46,7 +47,6 @@
 <script>
 import apiService from "@/service/index";
 import noLogo from "@/assets/images/hospitalLogo.png";
-
 export default {
   mounted() {
     console.log(this.$route);
@@ -125,7 +125,7 @@ export default {
   margin-right: 10px;
 }
 .logo {
-  margin: auto 20px;
+  margin: 12px 20px;
   height: 32px;
 }
 

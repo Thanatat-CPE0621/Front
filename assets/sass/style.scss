@@ -11,21 +11,21 @@ $break: 1440px;
 
 @font-face {
     font-family: 'Pontano Sans';
-    src: url('~assets/fonts/RSU_light.ttf') format('truetype');
+    src: url('../fonts/RSU_light.ttf') format('truetype');
     font-weight: lighter;
     font-style: lighter;
 }
 
 @font-face {
     font-family: 'Pontano Sans';
-    src: url('~assets/fonts/RSU_Regular.ttf') format('truetype');
+    src: url('../fonts/RSU_Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
     
 @font-face {
     font-family: 'Pontano Sans';
-    src: url('~assets/fonts/RSU_Bold.ttf') format('truetype');
+    src: url('../fonts/RSU_Bold.ttf') format('truetype');
     font-weight: Bold;
     font-style: Bold;
 
@@ -54,7 +54,6 @@ a {
         text-decoration: none !important;
       }
 }
-
 .input {
     font-family: $font-stack, Helvetica, Arial, sans-serif !important;
     background-color:$background-color ;
@@ -75,10 +74,46 @@ a {
         outline-color: $out-line;
     }
 }
+
+.form-input{
+    font-family: $font-stack, Helvetica, Arial, sans-serif !important;
+    font-size: 17px;
+    padding: 0px;
+    background-color:none;
+    border: none;
+    border-bottom: 1px solid $font-color;
+    min-width: 200px;
+    &:focus{
+        outline-width: 0px;
+    }
+
+}
 .title{
     font-size: 2.5em;
     font-weight: bold;
     -webkit-text-stroke: 0.3px ;
+    color: #878887;
+    &.sub-title{
+        font-size: 2em;
+    }
+}
+.text-black{
+    color: black;
+}
+.title-page{
+    font-size:1.2em;
+    color: #878887;
+
+}
+.title-card{
+    font-size:1.4em;
+    margin-left: 30px;
+    
+}
+.underline{
+    color:$primary-color;
+    padding-bottom: 15px;
+    border-bottom: 4px solid $primary-color;
 }
 button {
     margin: 10px auto 0px auto;
@@ -89,6 +124,10 @@ button {
     border-radius: 2px;
     border-width: 0px;
     cursor: pointer;
+    &.default{
+        padding: 0px;
+        
+    }
     &.nomal{
         padding: 2px 10px;
     }
@@ -109,11 +148,26 @@ button {
             border-color: $background-color-2;
         }
     }
+    &.border{
+        text-align: center;
+        border-radius: 5px;
+        border: 2px solid $card;
+        color: black !important;
+        background-color: transparent;
+        &:hover{
+            color: $font-color !important;
+            background-color: $background-color;
+            border-color: $card;
+        }
+    }
     &.remove-margin{
         width: 70px;
         margin: 1px;
         padding-top: 7px;
         margin-right: 7px;
+    }
+    &.gap-btn{
+        margin:0px 5px;
     }
 }
 
@@ -153,7 +207,9 @@ td {
 .item-center{
     align-items:center
 }
-
+.text-center{
+    text-align: center;
+}
 .card {
     box-shadow: $card-alpha 3px 4px 20px;
     border-radius: 8px;
@@ -165,8 +221,36 @@ td {
         margin-top: 20px;
         margin: 20px 20px;
     }
+    &.full{
+        padding: 0px;
+        margin: 0px;
+        box-shadow: $card-alpha 3px 4px 10px;
+    }
+    >.gap{
+        padding: 20px 20px 0px 20px;
+    }
 }
 
+.card-with-header {
+    box-shadow: $card-alpha 3px 4px 20px;
+    border-radius: 8px;
+    color: rgb(128, 130, 133);
+    padding: 20px;
+    background-color: white;
+    &.no-margin-top{
+        margin-top: 20px;
+        margin: 20px 20px;
+    }
+    &.full{
+        padding: 0px;
+        margin: 0px;
+        box-shadow: $card-alpha 3px 4px 10px;
+    }
+
+    >.gap{
+        padding: 20px 20px 0px 20px;
+    }
+}
 .card-half {
     height: 25%;
 }

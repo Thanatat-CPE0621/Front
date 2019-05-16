@@ -55,7 +55,11 @@ import apiService from "@/service/index";
 import noLogo from "@/assets/images/hospitalLogo.png";
 export default {
   layout: "hospital",
-
+  head() {
+    return {
+      title: "Hospital : QueQ Hospital Warroom"
+    };
+  },
   computed: {
     hospitals() {
       return this.$store.state.hospital.hospitals;

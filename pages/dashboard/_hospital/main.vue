@@ -1,10 +1,9 @@
 <template>
   <div class="container">
     <el-row type="flex" justify="end" style="padding:0 16px;">
-      <el-col :span="6">
-        <div class="flex">
+      <el-col :span="8">
+        <div class="flex-end">
           <a-button type="primary" class="remove-margin size-btn">วันนี้</a-button>
-          <!-- <button class="remove-margin">วันนี้</button> -->
           <el-date-picker
             v-model="date"
             type="daterange"
@@ -86,7 +85,8 @@ export default {
   },
 
   created() {
-    this.daterange = this.$nuxt.$moment();
+    // this.daterange = this.$nuxt.$moment();
+    this.daterange = null;
   }
 };
 </script>
