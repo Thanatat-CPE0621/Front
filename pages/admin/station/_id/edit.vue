@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="title-page">Station / Add Station</div>
+    <div class="title-page">Station / Edit Station</div>
     <div class="card full">
       <div class="header flex content-header">
         <img src="@/assets/images/admin/arrow-light.png" height="15">
@@ -8,17 +8,18 @@
           <nuxt-link class="link" to="/admin/station">Station</nuxt-link>
         </div>
         <div>
-          <span class="underline link">Add Station</span>
+          <span class="underline link">Edit Station</span>
         </div>
       </div>
       <div class="content flex-center">
-        <div class="title">Add Station</div>
+        <div class="title">Edit Station</div>
       </div>
       <div class="flex-center">
         <div class="label">
           <a-form :form="form" @submit="handleSubmit">
             <a-form-item label="Hosital Name" v-bind="formItemLayout">
               <a-select
+                disabled
                 v-decorator="[
                 'hospital_id',
                 {
@@ -218,26 +219,52 @@ export default {
       }
     };
   },
-  async created() {
+  async mounted() {
     window.$nuxt.$root.$loading.start();
     // getAllHospitalListforReorder
     const resApi = await hospitalService.getAllHospitalListforReorder();
     if (resApi.data) {
       this.hospitals = resApi.data.hospitals;
-      window.$nuxt.$root.$loading.finish();
     } else {
-      window.$nuxt.$root.$loading.finish();
       console.log(error);
     }
     // getQueueNumberTypesList
     const resApi2 = await roomService.getQueueNumberTypesList();
     if (resApi2.data) {
       this.queueNumberTypes = resApi2.data.queueNumberTypes;
-      window.$nuxt.$root.$loading.finish();
     } else {
-      window.$nuxt.$root.$loading.finish();
       console.log(error);
     }
+
+    const sID = this.$route.params.id;
+    const resInfo = await stationService.getStationInfo(sID);
+    console.log("resInfo:", resInfo);
+    if (resInfo.data) {
+      const { station } = resInfo.data;
+      this.form.setFieldsValue({
+        ["hospital_id"]: station.hospital_id,
+        ["station_name"]: station.station_name,
+        ["station_code"]: station.station_code,
+        ["status"]: station.status,
+        ["queue_prefix"]: station.queue_prefix,
+        ["queue_number_type"]: station.queue_number_type,
+        ["queue_number_index"]: station.queue_number_index,
+        ["tranfer_room"]: station.station_mode,
+        ["gray"]: station.stat_gray,
+        ["green"]: station.stat_green,
+        ["yellow"]: station.stat_red,
+        ["red"]: station.stat_yellow
+      });
+    }
+    Promise.all([resApi, resApi2])
+      .then(res => {
+        window.$nuxt.$root.$loading.finish();
+        // console.log(res);
+      })
+      .catch(err => {
+        window.$nuxt.$root.$loading.finish();
+        console.log(err);
+      });
   },
   methods: {
     filterOption(input, option) {
@@ -312,12 +339,14 @@ export default {
               stat_yellow: value.yellow,
               stat_red: value.red
             };
-            const res = await stationService.addStation(data);
+            console.log("data:", data);
+            const sID = this.$route.params.id;
+            const res = await stationService.editStation(sID, data);
             if (res.data) {
               window.$nuxt.$root.$loading.finish();
               this.$success({
                 title: "Success",
-                content: "Register station successful"
+                content: "Update station successful"
               });
               this.$router.push("/admin/station");
             } else {

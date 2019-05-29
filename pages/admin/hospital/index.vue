@@ -25,12 +25,14 @@
     </div>
     <el-row type="flex" justify="center">
       <el-col :span="8">
-        <input type="text" class="dark input" placeholder="ค้นหาโรงพยาบาล">
+        <a-input placeholder="ค้นหาโรงพยาบาล">
+          <a-icon slot="prefix" type="user"/>
+        </a-input>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :span="24">
-        <table-component/>
+        <table-component :hospitals="hospitals"/>
       </el-col>
     </el-row>
     <div class="flex-center">
@@ -42,6 +44,7 @@
 
 
 <script>
+import hospitalService from "@/service/hospital";
 import tableComponent from "@/components/admin/hospital/table.vue";
 export default {
   layout: "admin",
@@ -51,6 +54,24 @@ export default {
     return {
       title: "Hospital : QueQ Hospital Warroom"
     };
+  },
+  computed: {
+    hospitals() {
+      return this.$store.state.hospital.hospitals;
+    }
+  },
+  async created() {
+    window.$nuxt.$root.$loading.start();
+    const resApi = await hospitalService.getAllHospitalList();
+    if (resApi && resApi.data) {
+      this.$store.commit("hospital/getHospitals", {
+        hospitals: { ...resApi.data.hospitals }
+      });
+      window.$nuxt.$root.$loading.finish();
+    } else {
+      console.log(resApi.data.message);
+      window.$nuxt.$root.$loading.finish();
+    }
   }
 };
 </script>

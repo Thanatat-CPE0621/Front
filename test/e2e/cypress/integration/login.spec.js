@@ -18,10 +18,7 @@ context('Login Page', () => {
             .should('have.value', 'namename')
         // .type('knownamenow', { delay: 100 })
         cy.get('button').click()
-        // cy.route('GET', 'login/*', 'fixture:activities.json')
-        // cy.visit('http://localhost:3000/admin');
         cy.url().should('eq', 'http://localhost:3000/admin');
-        // 
     })
 
     it('check responsive', () => {

@@ -225,6 +225,6 @@ nav {
 .text-center {
   display: flex;
   justify-content: center;
-  font-size: 13px;
+  font-size: 14px;
 }
 </style>
