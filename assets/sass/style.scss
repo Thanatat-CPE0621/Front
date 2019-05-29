@@ -11,21 +11,21 @@ $break: 1440px;
 
 @font-face {
     font-family: 'Pontano Sans';
-    src: url('../fonts/RSU_light.ttf') format('truetype');
+    src: url('/_nuxt/assets/fonts/RSU_light.ttf') format('truetype');
     font-weight: lighter;
     font-style: lighter;
 }
 
 @font-face {
     font-family: 'Pontano Sans';
-    src: url('../fonts/RSU_Regular.ttf') format('truetype');
+    src: url('/_nuxt/assets/fonts/RSU_Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
     
 @font-face {
     font-family: 'Pontano Sans';
-    src: url('../fonts/RSU_Bold.ttf') format('truetype');
+    src: url('/_nuxt/assets/fonts/RSU_Bold.ttf') format('truetype');
     font-weight: Bold;
     font-style: Bold;
 
@@ -33,7 +33,8 @@ $break: 1440px;
 
 * {
     font-family: $font-stack !important;
-    -webkit-text-stroke: 0.05px ;
+    // -webkit-text-stroke: 0.05px ;
+    font-size: 14px ;
 }
 
 b {
@@ -41,7 +42,7 @@ b {
 }
 
 a {
-    font-size: 14px !important;
+    font-size: 14px ;
     margin: auto !important;
     color: $font-color !important;
     &:hover {
@@ -52,7 +53,9 @@ a {
     }
     &:link {
         text-decoration: none !important;
-      }
+    }
+   
+    
 }
 .input {
     font-family: $font-stack, Helvetica, Arial, sans-serif !important;
@@ -103,12 +106,24 @@ a {
 .title-page{
     font-size:1.2em;
     color: #878887;
-
 }
 .title-card{
     font-size:1.4em;
     margin-left: 30px;
-    
+}
+.title-row{
+    font-size:1.4em;
+    margin-left: 30px;
+}
+.over-text{
+    position: absolute;
+    top:    200px;
+    left: auto;
+    right: 200px;
+    color: #818284;
+    font-size: 15px;
+    margin: 0;
+    padding-bottom: 0;
 }
 .underline{
     color:$primary-color;
@@ -197,9 +212,9 @@ td {
 }
 .flex-end{
     display:flex;
-    justify-content:flex-end
+    justify-content:flex-end;
+  
 }
-
 .flex-center{
     display: flex;
     justify-content: center;
@@ -255,6 +270,7 @@ td {
     height: 25%;
 }
 
+//custom css with css framework
 .el-row {
     margin-bottom: 20px;
     &:last-child {
@@ -263,4 +279,16 @@ td {
 }
 
 
+.ant-input{
+    font-size: 16px;
+}
+
+.ant-form-item {
+    margin-bottom: 5px !important;
+}
+
+.ant-form label {
+    font-size: 16px !important;
+    color: $font-color !important;;
+}
 

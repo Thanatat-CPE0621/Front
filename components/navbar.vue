@@ -22,11 +22,12 @@
       <a-tooltip placement="bottom">
         <template slot="title">
           <div slot="content">
-            UI Ver.1.0.17
-            <br>API Ver.1.0.17
+            UI Ver.{{ui}}
+            <br>
+            API Ver.{{api}}
           </div>
         </template>
-        <div class="bold">UI Ver.1.0.17</div>
+        <div class="bold">UI Ver.{{ui}}</div>
       </a-tooltip>
       <div class="inline">
         <img src="~/assets/images/user.png" class="user-img">
@@ -45,36 +46,24 @@
 </template>
 
 <script>
-import apiService from "@/service/index";
+import staffService from "@/service/staff";
+import { UI_VERSION, API_VERSION } from "@/config/config";
 import noLogo from "@/assets/images/hospitalLogo.png";
 export default {
   mounted() {
-    console.log(this.$route);
-    const _this = this;
-    this.$nextTick(() => {
-      if ($nuxt.$route.name === "dashboard-hospital-main") {
-        this.$root.$loading.start();
-        apiService
-          .get(`hospital/${$nuxt.$route.params.hospital}/info`)
-          .then(res => {
-            console.log("res:", res);
-            const { data } = res.data;
-            this.$store.commit("hospital/getHospitalInfo", {
-              info: data
-            });
-            this.$root.$loading.finish();
-          })
-          .catch(err => {
-            this.$root.$loading.finish();
-            console.log(err);
-          });
-      }
-    });
+    console.log("UI_VERSION:", UI_VERSION);
+    console.log("API_VERSION:", API_VERSION);
+  },
+  data() {
+    return {
+      ui: UI_VERSION,
+      api: API_VERSION
+    };
   },
   computed: {
     getname() {
       if (this.$store.state.user.userData.hasOwnProperty("user")) {
-        return this.$store.state.user.userData.user.name;
+        return this.$store.state.user.userData.user.staff_name;
       } else {
         return null;
       }

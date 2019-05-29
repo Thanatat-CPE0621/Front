@@ -40,18 +40,14 @@
         </el-col>
       </el-row>
     </div>
-    <div class="container">
-      <el-row type="flex" justify="center">
-        <el-col :span="24">
-          <!-- <a-pagination :defaultCurrent="1" :total="this.$store.state.hospital.hospitals.length"/> -->
-        </el-col>
-      </el-row>
+    <div class="flex-center">
+      <a-pagination showSizeChanger :defaultCurrent="1" :total="100"/>
     </div>
   </div>
 </template>
 
 <script>
-import apiService from "@/service/index";
+import hospitalService from "@/service/hospital";
 import noLogo from "@/assets/images/hospitalLogo.png";
 export default {
   layout: "hospital",
@@ -65,33 +61,15 @@ export default {
       return this.$store.state.hospital.hospitals;
     }
   },
-
-  mounted() {
-    this.$store.commit("hospital/getHospitalInfo", {
-      info: []
-    });
-
-    apiService
-      .get("hospital/")
-      .then(res => {
-        const { data } = res.data;
-        console.log("data:", data);
-        console.log("token:", res);
-        if (!data) {
-          // this.$store.commit("user/setUserData", {
-          //   user: [],
-          //   isLogin: false,
-          //   token: null
-          // });
-          // this.$router.push("/login");
-        }
-        this.$store.commit("hospital/getHospitals", {
-          hospitals: { ...data.hospitals }
-        });
-      })
-      .catch(err => {
-        console.log(err);
+  async created() {
+    const resApi = await hospitalService.getAllHospitalList();
+    if (resApi.data) {
+      this.$store.commit("hospital/getHospitals", {
+        hospitals: { ...resApi.data.hospitals }
       });
+    } else {
+      console.log(resApi.data.message);
+    }
   },
   methods: {
     imgError(event) {

@@ -9,12 +9,14 @@
           :class="val.style"
         >{{val.name}}</th>
       </tr>
-      <tr v-for="(val,key) in tableData" :key="key">
-        <td class="text-left">{{val.name}}</td>
-        <td>{{val.built}}</td>
-        <td>{{val.edited}}</td>
+      <tr v-for="(val,key) in stations" :key="key">
+        <td class="text-left">
+          <nuxt-link :to="`/admin/station/${val.station_id}/edit`">{{val.station_name}}</nuxt-link>
+        </td>
+        <td>{{FormatDate(val.created_date)}}</td>
+        <td>{{FormatDate(val.updated_date)}}</td>
         <td>
-          <button class="default link-amount">{{val.stationAmount}}</button>
+          <button class="default link-amount" @click="linkRoom(val.station_id)">{{val.room_amount}}</button>
         </td>
         <td v-if="val.status">
           <font-awesome-icon icon="circle" :style="{ color: '#45B383' }"/>
@@ -25,7 +27,9 @@
           <span>เลิกใช้งาน</span>
         </td>
         <td>
-          <img src="@/assets/images/admin/Element-08.png" width="17px" alt>
+          <nuxt-link :to="`/admin/station/${val.station_id}/edit`">
+            <img src="@/assets/images/admin/Element-08.png" width="17px" alt>
+          </nuxt-link>
         </td>
       </tr>
     </table>
@@ -33,9 +37,11 @@
 </template>
 
 <script>
-import mockup from "@/components/admin/station/mockup.js";
 export default {
   name: "tableComponent",
+  props: {
+    stations: Object
+  },
   data() {
     return {
       data: [],
@@ -46,19 +52,32 @@ export default {
         { width: "10%", name: "จำนวนห้อง" },
         { width: "10%", name: "สถานะ" },
         { width: "10%", name: "จัดการ" }
-      ],
-      tableData: mockup
+      ]
     };
   },
   methods: {
-    status(bool) {
+    FormatDate(time) {
+      if (time) {
+        let date = String(time).split(" ");
+        let dateFormat = String(date[0]).split("-");
+        dateFormat[0] = Number(dateFormat[0]) + Number("543");
+        let year = String(dateFormat[0]).match(/.{2}/g);
+        return dateFormat[2] + "/" + dateFormat[1] + "/" + year[1];
+      }
       return;
+    },
+    linkRoom(id) {
+      this.$store.commit("station/getStationID", id);
+      this.$router.push("/admin/room");
     }
   }
 };
 </script>
 
 <style  scoped>
+a {
+  color: black !important;
+}
 table {
   width: 100%;
 }
@@ -72,6 +91,7 @@ tr > td {
   padding: 10px;
   text-align: center;
   border: 2px solid #f2f2f3;
+  color: black;
 }
 .text-left {
   text-align: left;
