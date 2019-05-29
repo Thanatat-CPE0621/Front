@@ -19,13 +19,26 @@
       </label>
     </div>
     <el-row type="flex" justify="center">
-      <el-col :span="8">
-        <input type="text" class="dark input" placeholder="ค้นหาแผนก">
+      <el-col :span="6">
+        <a-select
+          class="select"
+          showSearch
+          optionFilterProp="children"
+          :filterOption="filterOption"
+          v-model="hospitalID"
+          @change="hospitalHandle"
+        >
+          <a-select-option
+            v-for="(val,index) in hospitals"
+            :key="index"
+            :value="val.hospital_id"
+          >{{val.hospital_name}}</a-select-option>
+        </a-select>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :span="24">
-        <table-component/>
+        <table-component :stations="stations"/>
       </el-col>
     </el-row>
     <div class="flex-center">
@@ -34,10 +47,9 @@
     <br>
   </div>
 </template>
-
-
 <script>
 import tableComponent from "@/components/admin/station/table.vue";
+import hospitalService from "@/service/hospital";
 export default {
   layout: "admin",
   name: "station",
@@ -46,6 +58,66 @@ export default {
     return {
       title: "Station : QueQ Hospital Warroom"
     };
+  },
+  computed: {
+    stations() {
+      return this.$store.state.station.stations;
+    }
+  },
+  data() {
+    return {
+      hospitals: [],
+      hospitalID: this.$store.state.hospital.hospital_id
+    };
+  },
+  async created() {
+    window.$nuxt.$root.$loading.start();
+    const resApih = await hospitalService.getAllHospitalListforReorder();
+    if (resApih.data) {
+      this.hospitals = resApih.data.hospitals;
+      window.$nuxt.$root.$loading.finish();
+    } else {
+      window.$nuxt.$root.$loading.finish();
+      console.log(error);
+    }
+    const hID = this.$store.state.hospital.hospital_id;
+    const resApi = await hospitalService.getStationInHospital(hID);
+    if (resApi && resApi.data) {
+      this.$store.commit("station/getStations", {
+        stations: { ...resApi.data.stations }
+      });
+      window.$nuxt.$root.$loading.finish();
+    } else {
+      console.log(resApi.data.message);
+      window.$nuxt.$root.$loading.finish();
+    }
+  },
+  methods: {
+    filterOption(input, option) {
+      return (
+        option.componentOptions.children[0].text
+          .toLowerCase()
+          .indexOf(input.toLowerCase()) >= 0
+      );
+    },
+    async hospitalHandle(hID) {
+      window.$nuxt.$root.$loading.start();
+      try {
+        this.$store.commit("hospital/getHospitalID", hID);
+        const resApi = await hospitalService.getStationInHospital(hID);
+        if (resApi && resApi.data) {
+          this.$store.commit("station/getStations", {
+            stations: { ...resApi.data.stations }
+          });
+          window.$nuxt.$root.$loading.finish();
+        } else {
+          console.log(resApi.data.message);
+          window.$nuxt.$root.$loading.finish();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 };
 </script>
@@ -56,5 +128,8 @@ export default {
 }
 th {
   background-color: #818284 !important;
+}
+.select {
+  width: 100%;
 }
 </style>

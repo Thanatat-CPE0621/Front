@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import apiService from "@/service/index";
+import staffService from "@/service/staff";
 import { Modal } from "ant-design-vue";
 export default {
   data() {
@@ -54,38 +54,42 @@ export default {
     };
   },
   methods: {
-    login() {
+    async login() {
       window.$nuxt.$root.$loading.start();
-      const _this = this;
-      let data = new FormData();
-      data.append("login_name", _this.login_name);
-      data.append("password", _this.password);
-      apiService
-        .post("staff/login", data)
-        .then(res => {
-          console.log("res:", res);
-          const { data } = res.data;
-          if (!data) {
-            window.$nuxt.$root.$loading.finish();
-            return;
-          }
-          localStorage.setItem("user_data", JSON.stringify(data));
+
+      try {
+        const _this = this;
+        let data = new FormData();
+        data.append("login_name", _this.login_name);
+        data.append("password", _this.password);
+        const res = await staffService.staffLogin(data);
+
+        if (res.data) {
+          window.$nuxt.$root.$loading.finish();
+          localStorage.setItem("user_data", JSON.stringify(res.data));
           this.$store.commit("user/setUserData", {
-            user: data,
+            user: res.data,
             isLogin: true,
-            token: data.user.user_token
+            token: res.data.user.user_token
           });
-          if (data.role.is_super_admin) {
+          if (res.data.role.is_super_admin) {
             this.$router.push("/admin");
           } else {
-            this.$router.push(`/dashboard/${data.hospital.hospital_id}/main`);
+            this.$router.push(
+              `/dashboard/${res.data.hospital.hospital_id}/main`
+            );
           }
+        } else {
           window.$nuxt.$root.$loading.finish();
-        })
-        .catch(err => {
-          window.$nuxt.$root.$loading.finish();
-          console.log(err);
-        });
+          this.$error({
+            title: "Error",
+            content: res.error.message
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        window.$nuxt.$root.$loading.finish();
+      }
     }
   }
 };

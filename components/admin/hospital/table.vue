@@ -9,14 +9,19 @@
           :class="val.style"
         >{{val.name}}</th>
       </tr>
-      <tr v-for="(val,key) in tableData" :key="key">
-        <td class="text-left">{{val.name}}</td>
-        <td>{{val.built}}</td>
-        <td>{{val.edited}}</td>
-        <td>
-          <button class="default link-amount">{{val.stationAmount}}</button>
+      <tr v-for="(val,key) in hospitals" :key="key">
+        <td class="text-left">
+          <nuxt-link :to="`/admin/hospital/${val.hospital_id}/edit`">{{val.hospital_name}}</nuxt-link>
         </td>
-        <td v-if="val.status">
+        <td>{{FormatDate(val.created_date)}}</td>
+        <td>{{FormatDate(val.updated_date)}}</td>
+        <td>
+          <button
+            class="default link-amount"
+            @click="linkStation(val.hospital_id)"
+          >{{val.station_amount}}</button>
+        </td>
+        <td v-if="val.status===1">
           <font-awesome-icon icon="circle" :style="{ color: '#45B383' }"/>
           <span>ใช้งานอยู่</span>
         </td>
@@ -25,7 +30,9 @@
           <span>เลิกใช้งาน</span>
         </td>
         <td>
-          <img src="@/assets/images/admin/Element-08.png" width="17px" alt>
+          <nuxt-link :to="`/admin/hospital/${val.hospital_id}/edit`">
+            <img src="@/assets/images/admin/Element-08.png" width="17px" alt>
+          </nuxt-link>
         </td>
       </tr>
     </table>
@@ -33,12 +40,13 @@
 </template>
 
 <script>
-import mockup from "@/components/admin/hospital/mockup.js";
 export default {
   name: "tableComponent",
+  props: {
+    hospitals: Object
+  },
   data() {
     return {
-      data: [],
       header: [
         { width: "20%", name: "โรงพยาบาล" },
         { width: "10%", name: "วันที่สร้าง" },
@@ -46,23 +54,39 @@ export default {
         { width: "10%", name: "จำนวนแผนก" },
         { width: "10%", name: "สถานะ" },
         { width: "10%", name: "จัดการ" }
-      ],
-      tableData: mockup
+      ]
     };
   },
   methods: {
-    status(bool) {
+    FormatDate(time) {
+      if (time) {
+        let date = String(time).split(" ");
+        let dateFormat = String(date[0]).split("-");
+        dateFormat[0] = Number(dateFormat[0]) + Number("543");
+        let year = String(dateFormat[0]).match(/.{2}/g);
+        return dateFormat[2] + "/" + dateFormat[1] + "/" + year[1];
+      }
       return;
+    },
+    linkStation(id) {
+      this.$store.commit("hospital/getHospitalID", id);
+      this.$router.push("/admin/station");
     }
   }
 };
 </script>
 
 <style  scoped>
+a {
+  color: black !important;
+}
 table {
   width: 100%;
+  font-size: 15px !important;
 }
-
+td {
+  font-size: 14px !important;
+}
 tr > th {
   background-color: #f2f2f3;
   padding: 7px;
@@ -72,6 +96,7 @@ tr > td {
   padding: 10px;
   text-align: center;
   border: 2px solid #f2f2f3;
+  color: black;
 }
 .text-left {
   text-align: left;
